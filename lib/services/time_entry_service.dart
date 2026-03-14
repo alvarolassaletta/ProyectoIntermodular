@@ -28,7 +28,7 @@ class TimeEntryService{
   }
 
   ///UPDATE - FICHAJE SALIDA 
-  ///clock_out habia quedado en null. Ahora se guarda  el fichade de salida emn UTC y en un formato compatible con el tipo de dato del campo (TIMESTAMP WITH TIME ZONE)
+  ///clock_out habia quedado en null. Ahora se guarda  el fichade de salida en UTC y en un formato compatible con el tipo de dato del campo (TIMESTAMP WITH TIME ZONE)
 
   Future<void> clockOut(String timeEntryId) async{
     try{
@@ -83,6 +83,30 @@ class TimeEntryService{
     }catch(e){
       print('Error $e'); 
       return []; 
+    }
+  }
+
+  /// SELECT - OBTENER ÚLTIMO FICHAJE 
+  /// Devuelve el último registro donde clockOut no sea null, si existe. Si no, devuelve null
+  /// Devolvera null en casos excepcionales: tabla timeEntry vacia, perdida de conexión a internet, etc
+  
+  Future<TimeEntry?> getLastCompletedTimeEntry(String userId) async{
+    try{
+       final data = await _supabase
+      .from('time_entries')
+      .select()
+      .eq('user_id',userId)
+      .not('clock_out', 'is', null)
+      .order('clock_in',ascending:false)
+      .limit(1)
+      .maybeSingle();
+      return data != null ? TimeEntry.fromMap(data) : null; 
+    } on PostgrestException catch(e){
+       print('Error DB: ${e.message} , codigo: ${e.code}');
+       return null;
+    }catch(e){
+      print('Error $e'); 
+      return null; 
     }
   }
   

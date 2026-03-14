@@ -25,7 +25,8 @@ class AuthService{
           }
         );
       } on AuthException catch(e){
-        throw Exception('Error de registro: ${e.message}');
+        ///relanza la misma excepcion  que fue capturada sin crear una nueva
+        rethrow; 
       } catch(e){
         throw Exception('Error inesperado al registrarse $e}');
       }
@@ -39,11 +40,11 @@ class AuthService{
     try{
       return await  _supabase.auth.signInWithPassword(email: email, password: password); 
     } on AuthException catch(e){
-      throw Exception('Error al iniciar sesion ${e.message}');
+        //rethow necesario para que se devuelva la AuthExcepcion
+        rethrow; 
     } catch(e){
       throw Exception('Error inesperado al iniciar sesion: $e');
-    }
-     
+    } 
   }
 
   //CERRAR SESIÓN - SIGN OUT 
@@ -53,7 +54,8 @@ class AuthService{
     try{
       return await  _supabase.auth.signOut();
     } on AuthException catch(e){
-      throw  Exception('Error al cerrar sesión ${e.message}');
+      //rethow necesario para que se devuelva la AuthExcepcion
+      rethrow;
     } catch(e){
       throw Exception('Error inesperado al cerrar sesión: $e');
     }
@@ -61,7 +63,7 @@ class AuthService{
 
   //getter  para objener el usuario actual 
   //devuelve el user que ha iniciado sesión o null si no hay usuario loggeado
-  User? get currrentUser =>  _supabase.auth.currentUser;
+  User? get currentUser =>  _supabase.auth.currentUser;
 
   
   //https://supabase.com/docs/reference/dart/auth-onauthstatechange
@@ -70,8 +72,6 @@ class AuthService{
   Stream <AuthState>  get authStateChanges => _supabase.auth.onAuthStateChange;
 
   //neceistaremos un aurchivo con un StreamBuilder 
-
-
 
 
 }
