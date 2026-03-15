@@ -71,7 +71,7 @@ class AuthService{
   // inicio de sesion, cierre de sesión, etc
   Stream <AuthState>  get authStateChanges => _supabase.auth.onAuthStateChange;
 
-  //neceistaremos un aurchivo con un StreamBuilder 
+  
 
 
 }
