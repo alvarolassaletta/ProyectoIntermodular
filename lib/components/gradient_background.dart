@@ -1,9 +1,38 @@
 import 'package:flutter/material.dart';
+import '../core/app_colors.dart';
 
 /// Contenedor personalizado  
-/// actáa como fondo para las screens 
-/// 
+/// Actúa como fondo para las pantallas Login, SignUp y Splash 
+/// Tambien se utiliza en HomeScreen para AppBar, NavigationBar y NavigationRail
 class GradientBackground extends StatelessWidget {
+  
+  static final BoxDecoration backgroundDecoration= BoxDecoration(
+        gradient: const LinearGradient(
+          begin:Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors:[
+            AppColors.gradientBackgroundStart, 
+            AppColors.gradientBackgroundMiddle, 
+            AppColors.gradientBackgroundEnd, 
+            ]
+          ),
+      );
+
+  ///Aplica el fondo degradado y sombras en la direccion indicada.
+  ///Se usara para AppBar, y en la barra de navegación NavigationRail(Desktop))
+  static BoxDecoration backgroundDecorationWithShadow(Offset shadowOffset) {
+    return backgroundDecoration.copyWith(
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withValues(),
+          blurRadius: 12,
+          spreadRadius: 0,
+          offset: shadowOffset, 
+        )
+      ],
+    );
+  }
+
   final Widget child; 
   const GradientBackground({super.key, required this.child});
 
@@ -12,17 +41,7 @@ class GradientBackground extends StatelessWidget {
     return Container(
       width: double.infinity,
       height:double.infinity,
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin:Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors:[
-            Color(0xFFDAD5D0), // Naranja superior
-            Color(0xFF17DB93), // Caqui central
-            Color(0xFF00D3CC), // Naranja inferior
-            ]
-          )
-      ),
+      decoration: backgroundDecoration,
       child: child,
     );
   }
