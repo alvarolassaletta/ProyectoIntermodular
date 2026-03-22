@@ -65,6 +65,10 @@ class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
     return '${hours.toString().padLeft(2, '0')}h ${minutes.toString().padLeft(2, '0')}m';
   }
 
+  Future<void> _showExportDialog() async {
+
+  }
+
 
 
   @override
@@ -123,71 +127,111 @@ class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
             );
           }
 
-          return RefreshIndicator(
-            onRefresh: _refresh,
-          
-            child: ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 40,vertical:24),
-              physics: const AlwaysScrollableScrollPhysics(),
-              itemCount: timeEntries.length,
-              itemBuilder: (context,index){
-
-                final timeEntry = timeEntries[index];
-                //dia  entrada dd/MM/yyyy
-                final clockIndayFormatted = _dateFormat.format(timeEntry.clockIn.toLocal());
-                //dia salida 
-                final clockOutDarFormatted = timeEntry.clockOut !=null ?  _dateFormat.format(timeEntry.clockOut!.toLocal()) : 'En curso';
-                // hora entrada 
-                final timeClockInFormatted = _timeFormat.format(timeEntry.clockIn.toLocal());
-                //hora salida 
-                final timeClockOutFormatted=  timeEntry.clockOut !=null ?  _timeFormat.format(timeEntry.clockOut!.toLocal()) : 'En curso'; 
-                
-                //ultima modicafión pra mostrar integridad 
-                final createdAt = _createdAtFormat.format(timeEntry. 
-                createdAt);
-            
-                //si no hay fichaje de salida, el fichaje esta en curso 
-                bool IsActive = timeEntry.clockOut ==null; 
-
-                String totalTime = calculateDuration(timeEntry.clockIn.toLocal(), timeEntry.clockOut?.toLocal());
-            
-                return Card(
-            
-                  margin: const EdgeInsets.symmetric(vertical: 6),
-                  elevation:4, // sombra para la Card
-                  shadowColor: Colors.black26,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
-                    //si el fichakje esta activo, que tengo un sobreado
-                    side: IsActive ? BorderSide(color: Colors.lightGreen, width: 1.5) : BorderSide.none),
-                
-                  child: ListTile(
-                    minVerticalPadding: 8,
-                    title: Text(
-                     'Día ${clockIndayFormatted} - ${clockOutDarFormatted}',
-                     style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(children:[
-                          Text('Entrada: ${timeClockInFormatted} '),
-                          SizedBox(width: 36),
-                          Text('Salida: ${timeClockOutFormatted}'),
-                          ]
-                        ),
-                        SizedBox(height: 8),
-                        Text('Tiempo trabajado: ${totalTime}'),
-                        SizedBox(height: 8),
-                        Text('Fecha registro : ${createdAt}')
-                      ],
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left:40,right: 40,top:24,bottom:24),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children:[
+                    Text(
+                      'Historial',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20
+                       
+                      )
                     ),
-                    leading: Icon(
-                      IsActive ? Icons.access_time_filled : Icons.check_circle,
-                      color: IsActive ? Colors.orange: Colors.lightGreen
-                    )
-                  ),
-                );
-              }),
+                    FilledButton.icon(
+                      onPressed: _showExportDialog,
+                      label: Text('Descargar Historial'),
+                      icon:  Icon(
+                        Icons.download_rounded,
+                        color: AppColors.primaryIconsColor,
+                        ),    
+                      style: FilledButton.styleFrom(
+                        backgroundColor: AppColors.gradientBackgroundStart,
+                        foregroundColor: AppColors.primaryIconsColor,
+                        elevation: 4,
+                        shadowColor: Colors.black.withValues(),
+                        shape: RoundedRectangleBorder(
+                          borderRadius:   BorderRadius.circular(12),
+                        )
+                      )     
+                    ),
+                  ]
+                ),
+              ),
+
+              Expanded(
+                child: RefreshIndicator(
+                  onRefresh: _refresh,
+                
+                  child: ListView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 40,vertical:24),
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    itemCount: timeEntries.length,
+                    itemBuilder: (context,index){
+                
+                      final timeEntry = timeEntries[index];
+                      //dia  entrada dd/MM/yyyy
+                      final clockIndayFormatted = _dateFormat.format(timeEntry.clockIn.toLocal());
+                      //dia salida 
+                      final clockOutDarFormatted = timeEntry.clockOut !=null ?  _dateFormat.format(timeEntry.clockOut!.toLocal()) : 'En curso';
+                      // hora entrada 
+                      final timeClockInFormatted = _timeFormat.format(timeEntry.clockIn.toLocal());
+                      //hora salida 
+                      final timeClockOutFormatted=  timeEntry.clockOut !=null ?  _timeFormat.format(timeEntry.clockOut!.toLocal()) : 'En curso'; 
+                      
+                      //ultima modicafión pra mostrar integridad 
+                      final createdAt = _createdAtFormat.format(timeEntry. 
+                      createdAt);
+                  
+                      //si no hay fichaje de salida, el fichaje esta en curso 
+                      bool IsActive = timeEntry.clockOut ==null; 
+                
+                      String totalTime = calculateDuration(timeEntry.clockIn.toLocal(), timeEntry.clockOut?.toLocal());
+                  
+                      return Card(
+                  
+                        margin: const EdgeInsets.symmetric(vertical: 6),
+                        elevation:4, // sombra para la Card
+                        shadowColor: Colors.black26,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
+                          //si el fichakje esta activo, que tengo un sobreado
+                          side: IsActive ? BorderSide(color: Colors.lightGreen, width: 1.5) : BorderSide.none),
+                      
+                        child: ListTile(
+                          minVerticalPadding: 8,
+                          title: Text(
+                           'Día ${clockIndayFormatted} - ${clockOutDarFormatted}',
+                           style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(children:[
+                                Text('Entrada: ${timeClockInFormatted} '),
+                                SizedBox(width: 36),
+                                Text('Salida: ${timeClockOutFormatted}'),
+                                ]
+                              ),
+                              SizedBox(height: 8),
+                              Text('Tiempo trabajado: ${totalTime}'),
+                              SizedBox(height: 8),
+                              Text('Fecha registro : ${createdAt}')
+                            ],
+                          ),
+                          leading: Icon(
+                            IsActive ? Icons.access_time_filled : Icons.check_circle,
+                            color: IsActive ? Colors.orange: Colors.lightGreen
+                          )
+                        ),
+                      );
+                    }),
+                ),
+              ),
+            ],
           );
         },
       ),

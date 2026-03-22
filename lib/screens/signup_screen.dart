@@ -52,8 +52,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Future <void> _signUp() async{
 
-    ///validate() devuelve true si todos los validator han devuelto  null, esto es si superar las validaciones. 
-    ///Si devuelve false, no se supera alguna validacion y se detiene ejecuciñon 
+    //validate() devuelve true si todos los validator han devuelto  null, esto es si se superan las validaciones. 
+    //Si devuelve false, no se supera alguna validación y se detiene  la ejecución 
     if (!_formKey.currentState!.validate()){
       return; 
     }

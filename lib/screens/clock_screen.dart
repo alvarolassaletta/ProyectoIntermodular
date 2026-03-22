@@ -132,7 +132,7 @@ class _ClockScreenState extends State<ClockScreen> {
     //false: No hay un fichaje de entrada activo
     final isWorking = activeTimeEntry !=null;
     //formateo de la fecha 
-    final dateFormat= DateFormat('HH:mm - dd/MM/yyyy');
+    final DateFormat dateFormat= DateFormat('HH:mm - dd/MM/yyyy');
 
     return Center(
       child: _isLoading 

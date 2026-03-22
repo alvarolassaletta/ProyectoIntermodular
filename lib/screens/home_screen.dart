@@ -33,19 +33,19 @@ class _HomeScreenState extends State<HomeScreen> {
   // La propiedad destinations de NavigationBar require una lista de NavigationDestination
   final List<NavigationDestination> _mobileDestinatios = const [
     NavigationDestination(
-      icon: Icon(Icons.punch_clock),
+      icon: Icon(Icons.punch_clock,color:AppColors.primaryIconsColor),
       label: 'Fichar',
     ),
     NavigationDestination(
-      icon: Icon(Icons.list_alt),
+      icon: Icon(Icons.list_alt,color: AppColors.primaryIconsColor,),
       label: 'Historial Fichajes',
     ),
     NavigationDestination(
-      icon: Icon(Icons.bar_chart),
+      icon: Icon(Icons.bar_chart,color: AppColors.primaryIconsColor,),
       label: 'Cómputo Horas',
     ),
     NavigationDestination(
-      icon: Icon(Icons.person),
+      icon: Icon(Icons.person,color:AppColors.primaryIconsColor),
       label: 'Perfil',
     ),
   ];
@@ -106,7 +106,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     bool isDesktop = MediaQuery.of(context).size.width >=600; 
-
+    // AppbAR solo se usará cuando la pantalla sea de movil
+    // Si la Pantalla es desktop, no se mostrara el AppBar
     final PreferredSizeWidget mobileAppBar = AppBar(
         title: Text("Registro de Fichaje"),
         centerTitle:true, 
@@ -120,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
             //padding solo a la derecha para separar el IconButton del borde derecho
             padding: const EdgeInsets.only(right: 16.0),
             child: IconButton(
-              icon: const Icon(Icons.logout),
+              icon: const Icon(Icons.logout,color:AppColors.primaryIconsColor,),
               tooltip: 'CerrarSesión',
               onPressed: () => _signOut()
             ),
@@ -130,7 +131,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       backgroundColor: Colors.grey.shade100,
+      //Si la pantalla es de movil se muestra el AppBar.
+      //Si es desktop, el appBar no se muestra
       appBar: isDesktop ? null : mobileAppBar,
+
       // Si la pantalla es de movil,  mostramos el NavigatioBar, En caso contrario, no se muestra el navigationBar
       bottomNavigationBar:  isDesktop ? null : Container(
         decoration: GradientBackground.backgroundDecoration,
@@ -159,6 +163,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       padding: const EdgeInsets.all(8.0),
                       child: NavigationRail(
                         backgroundColor: Colors.transparent,
+                        unselectedIconTheme: IconThemeData(color: AppColors.primaryIconsColor),
                         selectedIndex: widget.navigationShell.currentIndex,
                         onDestinationSelected: _onTap,
                         labelType: NavigationRailLabelType.all,
@@ -171,7 +176,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Padding(
                     padding: const EdgeInsets.only(bottom: 24.0),
                     child: IconButton(
-                      icon: const Icon(Icons.logout),
+                      icon: const Icon(Icons.logout,color: AppColors.primaryIconsColor,),
                       tooltip: 'Cerrar Sesión',
                       onPressed: () => _signOut(),
                     ),
