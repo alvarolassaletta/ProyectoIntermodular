@@ -86,6 +86,32 @@ class TimeEntryService{
     }
   }
 
+
+  /// SELECT TIME-ENTRIES DENTRO DE UN RANGO 
+  /// Obtiene los fichajes dentro de un rango de fechas  ordenados del mas reciente al  más antiguo
+  /// El rango concreto se elige en summary_screen 
+  Future <List<TimeEntry>>  getTimeEntriesByDateRange(
+    String userId, DateTime start, DateTime end
+  )async {
+    try{
+      final data = await _supabase.from('time_entries')
+        .select()
+        .eq('user_id',userId)
+        .gte('clock_in',start.toIso8601String())
+        .lte('clock_in',end.toIso8601String())
+        .order('created_at',ascending:false); 
+      return data.map((timeEntryMap)=> TimeEntry.fromMap(timeEntryMap) ).toList(); 
+
+    }on PostgrestException catch(e){
+      print('Error DB al filtrar: ${e.message} , codigo: ${e.code}');
+      return []; 
+    }catch(e){
+      print('Error al filtrar $e'); 
+      return []; 
+    }
+  }
+
+
   /// SELECT - OBTENER ÚLTIMO FICHAJE 
   /// Devuelve el último registro donde clockOut no sea null, si existe. Si no, devuelve null
   /// Devolvera null en casos excepcionales: tabla timeEntry vacia, perdida de conexión a internet, etc

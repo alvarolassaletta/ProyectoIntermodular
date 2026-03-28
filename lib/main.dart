@@ -3,6 +3,8 @@ import 'package:proyecto_intermodular/screens/splash_screen.dart';
 import 'package:proyecto_intermodular/supabase_config.dart';
 import 'package:proyecto_intermodular/utils/snack_bar_messenger.dart';
 import './routes/app_router.dart';
+//necesaria para configuraciones del calendario  en summary_screen
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() async  {
   
@@ -25,7 +27,16 @@ class MainApp extends StatelessWidget {
       title: 'Aplicación de Fichajes',
       routerConfig: appRouter,
       scaffoldMessengerKey: scaffoldMessengerKey,
-
+      // delegates que usa Flutter  para traducir los widgets  y controlar la dirección de texto flutter 
+      localizationsDelegates:  const[
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate
+      ],
+      //indica los idiomas sopordados por la app
+      supportedLocales: const[
+        Locale('es','ES')
+      ]
     );
   }
 }
