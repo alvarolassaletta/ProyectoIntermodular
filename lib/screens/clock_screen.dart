@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 ///intl para el formateo de fechas. Se puede hacer de forma nativa pero es mucho mas verboso
 import 'package:intl/intl.dart';
+import 'package:proyecto_intermodular/core/app_colors.dart';
 import 'package:proyecto_intermodular/models/time_entries.dart';
 import 'package:proyecto_intermodular/services/auth_service.dart';
 import 'package:proyecto_intermodular/services/time_entry_service.dart';
@@ -146,6 +147,15 @@ class _ClockScreenState extends State<ClockScreen> {
           child: Column(
             mainAxisAlignment:MainAxisAlignment.center,
             children:[
+              const Text(
+                'Fichar',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  ),
+                ),
+              Divider(color: AppColors.dividerColor,  thickness: 1.5),
+              SizedBox(height: 30),
               SizedBox(
                 width: double.infinity,
                 child: Card(

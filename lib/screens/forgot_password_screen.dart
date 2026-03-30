@@ -8,6 +8,7 @@ import 'package:proyecto_intermodular/utils/input_validation.dart';
 import 'package:proyecto_intermodular/utils/snack_bar_messenger.dart';
 
 // Los enum se declaran fuera de las clases 
+// Este enum se utiliza para controlar en que paso del proceso de recuperación de contraseña se encuentra el usuario, y mostrar los campos e instrucciones correspondientes en cada paso
 enum RecoveryStep {email,otp,newPassword}
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -316,7 +317,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             child: TextButton(
                               onPressed: (){
                                 context.pop();
-                              }, child: Text('Volver al inicio de sesióm'),
+                              }, child: Text('Volver al inicio de sesión'),
                             ),
                           ), 
                         ]
