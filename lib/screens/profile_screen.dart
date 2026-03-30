@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_intermodular/components/custom_text_form_field.dart';
+import 'package:proyecto_intermodular/core/app_colors.dart';
 import 'package:proyecto_intermodular/models/profiles.dart';
 import 'package:proyecto_intermodular/services/auth_service.dart';
 import 'package:proyecto_intermodular/services/profile_service.dart';
@@ -31,26 +32,26 @@ final _formKey = GlobalKey<FormState>();
 
 //  Esta variable tendra el perfil cargado cuando se navege a la pantalal y se llame al metodo _loadProfile 
 Profile? _profile;
-
+//variables para controlar el estado de carga y guardado del perfil, para mostrar indicadores de progreso y deshabilitar el boton de guardar mientras se esta guardando.
 bool _isLoading = true; 
 bool _isSaving = false; 
 
 
-  @override
-    void initState(){
-    super.initState(); 
-    _loadProfile();
-  }
+@override
+  void initState(){
+  super.initState(); 
+  _loadProfile();
+}
+///Limpia los controlares cuando  el widget se elimine del arbol de widgets 
+@override 
+void dispose(){
+  super.dispose();
+  _userNameController.dispose();
+  _fullNameController.dispose(); 
+}
 
-  @override 
-  void dispose(){
-    super.dispose();
-    _userNameController.dispose();
-    _fullNameController.dispose(); 
-  }
 
-
-///Obtiene el perfil del usuario  y carga la información de nombre de usuario y nombre completo en los input del formulario 
+///Obtiene el perfil del usuario  y carga la información de nombre de usuario y nombre completo en los 'input' del formulario 
 Future<void> _loadProfile ()async{
   //obtiene el usuario en sesión
   final user = _authService.currentUser;
@@ -62,7 +63,6 @@ Future<void> _loadProfile ()async{
   });
   try{
       //obtiene la informacion del perfil
-      
       final profile =  await _profileService.getProfile(user.id); 
       // se inyecta  la informacion del perfil en los controladores de los 'input'
       if(mounted){
@@ -84,7 +84,7 @@ Future<void> _loadProfile ()async{
   }
 }
 
-
+///Valida el formulario y si se superan las validaciones, actualiza el perfil del usuario con la información de los 'input' del formulario.
 Future <void> _saveProfile() async{
     
   //validate() devuelve true si todos los validator han devuelto  null, esto es si se superan las validaciones. 
@@ -120,10 +120,6 @@ Future <void> _saveProfile() async{
 
 }
 
-
-
-
-
   @override
   Widget build(BuildContext context) {
 
@@ -133,7 +129,7 @@ Future <void> _saveProfile() async{
       return Center(
         child:  CircularProgressIndicator.adaptive());
     }
-    //Utilizare un padding, center, ConstrainedBox  SingleChildScrollView Form y dentro  de Form una column con CustomTextForm View:
+    //Utiliza un padding, center, ConstrainedBox  SingleChildScrollView Form y dentro  de Form una column con CustomTextForm View:
     return  Padding(
       padding: EdgeInsets.all(40),
       child: Center(
@@ -146,21 +142,22 @@ Future <void> _saveProfile() async{
                 key: _formKey,
                 child: Column(
                   children:[
-                    Text( 
-                      'Modificar el perfil',
-                      //meter style con thmeOf Context)
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
+                    const Text(
+                        'Modificar perfil',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    Divider(color: AppColors.dividerColor,  thickness: 1.5),
+                    SizedBox(height: 30),
                     Text( 
                       '$email',
                       //meter style con thmeOf Context)
                       textAlign: TextAlign.center,
                     ),
                      SizedBox(
-                      height: 15,
+                      height: 30,
                     ),
                 ///NOMBRE DE USUARIO
                     CustomTextFormField(
@@ -187,14 +184,18 @@ Future <void> _saveProfile() async{
                       },
                     ),
                     const SizedBox(
-                      height:15,
+                      height:30,
                     ),
-                    FilledButton.icon(
-                      onPressed: _isSaving ? null : _saveProfile,
-                      icon: _isSaving ? 
-                        CircularProgressIndicator.adaptive() : Icon(Icons.save_outlined),
-                      label: Text(
-                        _isSaving ? 'Guardando..' : 'Guardar cambios')),
+                    SizedBox(
+                      height: 50,
+                      width: double.infinity,
+                      child: FilledButton.icon(
+                        onPressed: _isSaving ? null : _saveProfile,
+                        icon: _isSaving ? 
+                          CircularProgressIndicator.adaptive() : Icon(Icons.save_outlined),
+                        label: Text(
+                          _isSaving ? 'Guardando..' : 'Guardar cambios')),
+                    ),
                   ]
                 )
               )
