@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:proyecto_intermodular/components/custom_text_form_field.dart';
 import 'package:proyecto_intermodular/components/gradient_background.dart';
+import 'package:proyecto_intermodular/core/app_colors.dart';
 import 'package:proyecto_intermodular/services/auth_service.dart';
 import 'package:proyecto_intermodular/utils/auth_error_translator.dart';
 import 'package:proyecto_intermodular/utils/input_validation.dart';
@@ -206,7 +207,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           child: TextButton(
                             onPressed: (){
                               context.pop('/login');
-                            }, child: Text('¿Ya tienes cuenta? Inicia sesión'),
+                            }, child: Text(
+                              '¿Ya tienes cuenta? Inicia sesión',
+                              style: TextStyle(
+                                color: AppColors.primaryIconsColor
+                              ),
+                            ),
                           
                           ),
                         ),

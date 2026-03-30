@@ -7,7 +7,7 @@ class AuthService{
   ///REGISTRAR USUARIO - SIGN UP 
   ///Método para registrar un usuario  con  email y contraseña  usando el método auth.signUp
   ///Supabase enviía un correo de confirmación  que el usuario debe verificar 
-  ///Devulve un Objeto AuthResponse que usaremos para obtener información del usuario y de la sesion
+  ///Devuelve un Objeto AuthResponse que usaremos para obtener información del usuario y de la sesion
   ///Usamos la propiedad data para pasar  nombre de usuario y nombre completo.
   ///Cunado se activa este método, se activara un trigger  que llamará a un método para hacer la inserción del usuario en la tabla profiles
   Future <AuthResponse> signUp({
@@ -71,7 +71,48 @@ class AuthService{
   // inicio de sesion, cierre de sesión, etc
   Stream <AuthState>  get authStateChanges => _supabase.auth.onAuthStateChange;
 
-  
+  /// Solicita a supabase que mande el correo electronico de recuperacion con un codigo  de 6 digitos.
+  Future<void> sendEmailOTPCode (String email) async{
+    try{
+      await _supabase.auth.resetPasswordForEmail(email);
+    }catch(e){
+      print('Error al enviat OTP: $e');
+      //Lanza la excepcion para que se atrape en la pantalla para que  se pueda mostrar el SnackBar
+      rethrow;
+    }
+  }
+  /// https://supabase.com/docs/reference/dart/auth-verifyotp
+  /// Verifica el codigo OTP tecleado pro el usuario
+  /// VerifyOTP crea  una sesión temporal validada
+  Future<bool> verifyRecoveryOTP ({required String email, required String token}) async{
+    try{
+      final response = await _supabase.auth.verifyOTP(
+        //indica que el código es para recuperar contraseña 
+        type: OtpType.recovery,
+        email: email,
+        token:token,
+      );
+      return response.session !=null;
 
+    }catch(e){
+      print('Error al verificar OTP: $e');
+      return false; 
+    }
+  }
 
+  ///https://supabase.com/docs/reference/dart/auth-updateuser
+  ///Actualiza la contraseña del usuario autentificado temporalmente
+  /// Se puede usar updateUser porque VerifyOTP  ha creado  una sesión temporal validada. Si no updateUser no se podria usar porque esta pensado para ser usaoa por un usuario autenficado
+  Future <void> updatePassword(String newPassword) async{
+    try{
+      await _supabase.auth.updateUser(
+        UserAttributes(
+          password: newPassword
+        )
+      );
+    }catch(e){
+      print('Error al actualizar contraseña: $e');
+      rethrow; 
+    }
+  }
 }

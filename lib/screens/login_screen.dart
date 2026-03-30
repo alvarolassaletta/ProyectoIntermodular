@@ -3,6 +3,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:go_router/go_router.dart';
 import 'package:proyecto_intermodular/components/custom_text_form_field.dart';
 import 'package:proyecto_intermodular/components/gradient_background.dart';
+import 'package:proyecto_intermodular/core/app_colors.dart';
 import 'package:proyecto_intermodular/services/auth_service.dart';
 import 'package:proyecto_intermodular/utils/auth_error_translator.dart';
 import 'package:proyecto_intermodular/utils/input_validation.dart';
@@ -250,10 +251,27 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: TextButton(
                             onPressed: (){
                               context.push('/signup');
-                            }, child: Text('¿No tienes cuenta? Regístrate '),
-                          
+                            }, child: Text('¿No tienes cuenta? Regístrate ',
+                              style: TextStyle(
+                                color: AppColors.primaryIconsColor
+                              ),
+                            ),
                           ),
                         ),
+                        SizedBox(
+                          height: 50, 
+                          child: TextButton(
+                            onPressed: (){
+                              context.push('/forgot-password');
+                            }, child: Text(
+                              '¿Olvidaste tu contraseña?',
+                              style: TextStyle(
+                                color: AppColors.primaryIconsColor
+                                )
+                              ),
+                          ),
+                        ),
+                        // ¿OLVIDASTE LA CONTRASEÑA?
                 
                         /// LOGIN WITH GOOGLE 
                         

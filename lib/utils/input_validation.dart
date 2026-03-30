@@ -64,7 +64,7 @@ class InputValidation{
     final RegExp  passwordRegExp = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&#\-_+.=^~()<>/\\|,:;\[\]{}])[A-Za-z\d@$!%*?&#\-_+.=^~()<>/\\|,:;\[\]{}]{8,}$');
 
     if(!passwordRegExp.hasMatch(value)){
-      return 'La contraseña debe tener al menos 8 caracteres, contener letra, al menos un número, un caracter especial)';
+      return 'La contraseña debe tener al menos 8 caracteres, contener letra, al menos un número y un caracter especial)';
     }
     return null; 
   }
@@ -118,6 +118,34 @@ class InputValidation{
     
     return null;
   }
+
+  /// Valida que el código OTP introducido sea correcto.
+  ///
+  /// Exige exactamente 8 dígitos numéricos.
+  ///
+  /// Desglose:
+  /// * `^\d{6}$` : Solo dígitos (`\d`), exactamente 8.
+  ///
+  /// Devuelve null si el código es válido, o un mensaje de error si no.
+  static String? validateOtpCode(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Introduce el código de recuperación';
+    }
+
+    final RegExp otpRegExp = RegExp(r'^\d{8}$');
+
+    if (!otpRegExp.hasMatch(value)) {
+      return 'El código debe tener exactamente 6 dígitos';
+    }
+
+    return null;
+  }
+
+
+
+
+
+
 }
 
 

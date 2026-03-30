@@ -5,6 +5,7 @@ import 'package:proyecto_intermodular/core/app_colors.dart';
 import 'package:proyecto_intermodular/models/time_entries.dart';
 import 'package:proyecto_intermodular/services/auth_service.dart';
 import 'package:proyecto_intermodular/services/time_entry_service.dart';
+import 'package:proyecto_intermodular/utils/time_utils.dart';
 
 class SummaryScreen extends StatefulWidget {
   const SummaryScreen({super.key});
@@ -89,21 +90,6 @@ class _SummaryScreenState extends State<SummaryScreen> {
     await _futureTimeEntries;
   }
 
-    /// Suma la duración de todos los fichajes completados de la lista
-    /// El objetivo es calcular el tiempo de trabajo acumulado en los fichajes de la lista 
-  String _calculateTotalDuration(List<TimeEntry> entries) {
-    Duration total = Duration.zero;
-    for (final entry in entries) {
-      if (entry.clockOut != null) {
-        total += entry.clockOut!.difference(entry.clockIn);
-      }
-    }
-    final hours = total.inHours;
-    final minutes = total.inMinutes.remainder(60);
-    return '${hours.toString().padLeft(2, '0')}h ${minutes.toString().padLeft(2, '0')}m';
-  }
-
-
 
   /// Usa la funcion nativa de Flutter showDateRangePicker  que abre un dialogo visual para que el usuario eliga un rango de fechas.
   /// Devuelve un DateTimeRange con el rango
@@ -180,7 +166,6 @@ class _SummaryScreenState extends State<SummaryScreen> {
           final timeEntries = snapshot.data ?? [];
 
           // si la lista esta vacia de modo que no hay fichajes, se muestra este Center 
-              
           if(timeEntries.isEmpty){
             return Padding(
               padding: const EdgeInsets.all(40.0),
@@ -189,9 +174,8 @@ class _SummaryScreenState extends State<SummaryScreen> {
                   //boton para filtrar  por fechas
                   _buildDateRangeButton(),
                   
-                  const SizedBox(height: 100), // Empujamos el mensaje hacia el centro
+                  const SizedBox(height: 100), // Empuja el mensaje hacia el centro
                   
-                  //  EL MENSAJE DE VACÍO
                   const Column(
                     children: [
                       Icon(Icons.error_outline, size: 64, color: Colors.redAccent),
@@ -213,7 +197,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
           final String lastRealClockOut = timeEntries.last.clockOut != null 
           ? _dateFormat.format(timeEntries.first.clockOut!.toLocal())
           : 'En Curso'; 
-          final String totalDuration = _calculateTotalDuration(timeEntries); 
+          final String totalDuration = TimeUtils.calculateTotalDuration(timeEntries); 
 
 
           return RefreshIndicator(
@@ -236,8 +220,6 @@ class _SummaryScreenState extends State<SummaryScreen> {
                         height: 48,
                       ),
                   
-                  
-                  
                       Card(
                         elevation: 4,
                         shadowColor: Colors.black26,
@@ -256,7 +238,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                                 )
                               ),
                             ),
-                            const Divider(height:32),
+                            const Divider(color: AppColors.dividerColor ,height:32),
                             CustomSummaryRow(
                               icon: Icons.work, 
                               label: 'Inicio del rango: ', 
@@ -319,9 +301,10 @@ class _SummaryScreenState extends State<SummaryScreen> {
         onPressed: _pickDateRange,
           
         label: Text(
-          _selectedDateRange !=null
+          'Seleccionar rango de fechas',
+         /*  _selectedDateRange !=null
           ? '${_dateFormat.format(_selectedDateRange!.start)} -  ${_dateFormat.format(_selectedDateRange!.end)}'
-          :'Filtrar por fechas'
+          :'Filtrar por fechas' */
         ),
         icon:  Icon(
           Icons.calendar_month,
