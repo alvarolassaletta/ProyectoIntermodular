@@ -135,85 +135,88 @@ class _ClockScreenState extends State<ClockScreen> {
     //formateo de la fecha 
     final DateFormat dateFormat= DateFormat('HH:mm - dd/MM/yyyy');
 
-    return Center(
-      child: _isLoading 
-      ?  const CircularProgressIndicator.adaptive() 
-      : Padding(
-        padding: const EdgeInsets.all(40.0),
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            maxWidth: 400
-          ),
-          child: Column(
-            mainAxisAlignment:MainAxisAlignment.center,
-            children:[
-              const Text(
-                'Fichar',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  ),
-                ),
-              Divider(color: AppColors.dividerColor,  thickness: 1.5),
-              SizedBox(height: 30),
-              SizedBox(
-                width: double.infinity,
-                child: Card(
-                  
-                  elevation: 4,
-                  shape:RoundedRectangleBorder(
-                    borderRadius: BorderRadiusGeometry.circular(16)
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(24.0),
-                    child: Column (
-                      mainAxisAlignment: MainAxisAlignment.center,
-                          children:[
-                              
-                              Text(
-                                isWorking ? 'FICHAJE ENTRADA ACTIVO' : 'DESCONECTADO',
-                                style: TextStyle(
-                                  color: isWorking ? const Color(0xFF10A915) : Colors.grey,
-                                  fontWeight: FontWeight.bold
-                                )
-                              ),
-                               const SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                isWorking 
-                                ? '${dateFormat.format(activeTimeEntry!.clockIn.toLocal())}'
-                                : lastTimeEntry!=null 
-                                  ?'Última salida : ${dateFormat.format(lastTimeEntry!.clockOut!.toLocal())}'
-                                  : 'Aún no hay registros' ,
-                                style:TextStyle(
-                                  fontWeight: FontWeight.bold
-                                )
-                              ),
-                          ]
-                        )
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Center(
+        child: _isLoading 
+        ?  const CircularProgressIndicator.adaptive() 
+        : Padding(
+          padding: const EdgeInsets.all(40.0),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxWidth: 400
+            ),
+            child: Column(
+              mainAxisAlignment:MainAxisAlignment.center,
+              children:[
+                const Text(
+                  'Fichar',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                     ),
                   ),
-              ),
-              SizedBox(
-                height:30 ,
-              ),
-              
-              
-              SizedBox(
-                height: 50,
-                width: double.infinity,
-                child: FilledButton.icon(
-                  onPressed: _isProcessing ? null : _handleClockInClockOut,  
-                  icon: _isProcessing ? CircularProgressIndicator() : Icon(isWorking? Icons.run_circle : Icons.work),
-                  label: Text(isWorking ? 'Registrar Salida': 'Registrar Entrada '),
+                Divider(color: AppColors.dividerColor,  thickness: 1.5),
+                SizedBox(height: 30),
+                SizedBox(
+                  width: double.infinity,
+                  child: Card(
+                    
+                    elevation: 4,
+                    shape:RoundedRectangleBorder(
+                      borderRadius: BorderRadiusGeometry.circular(16)
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(24.0),
+                      child: Column (
+                        mainAxisAlignment: MainAxisAlignment.center,
+                            children:[
+                                
+                                Text(
+                                  isWorking ? 'FICHAJE ENTRADA ACTIVO' : 'DESCONECTADO',
+                                  style: TextStyle(
+                                    color: isWorking ? const Color(0xFF10A915) : Colors.grey,
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+                                 const SizedBox(
+                                  height: 8,
+                                ),
+                                Text(
+                                  isWorking 
+                                  ? '${dateFormat.format(activeTimeEntry!.clockIn.toLocal())}'
+                                  : lastTimeEntry!=null 
+                                    ?'Última salida : ${dateFormat.format(lastTimeEntry!.clockOut!.toLocal())}'
+                                    : 'Aún no hay registros' ,
+                                  style:TextStyle(
+                                    fontWeight: FontWeight.bold
+                                  )
+                                ),
+                            ]
+                          )
+                      ),
+                    ),
                 ),
-              ),
-              
-            ]
+                SizedBox(
+                  height:30 ,
+                ),
+                
+                
+                SizedBox(
+                  height: 50,
+                  width: double.infinity,
+                  child: FilledButton.icon(
+                    onPressed: _isProcessing ? null : _handleClockInClockOut,  
+                    icon: _isProcessing ? CircularProgressIndicator() : Icon(isWorking? Icons.run_circle : Icons.work),
+                    label: Text(isWorking ? 'Registrar Salida': 'Registrar Entrada '),
+                  ),
+                ),
+                
+              ]
+            ),
           ),
-        ),
-      ) 
+        ) 
+      ),
     );
   }
 }

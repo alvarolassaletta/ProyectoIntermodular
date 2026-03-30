@@ -124,6 +124,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: 
       FutureBuilder(
         future: _futureTimeEntries,

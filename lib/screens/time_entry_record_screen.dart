@@ -88,6 +88,7 @@ class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body:  FutureBuilder<List<TimeEntry>>(
         future: _futureTimeEntries,
         builder: (context,snapshot) {

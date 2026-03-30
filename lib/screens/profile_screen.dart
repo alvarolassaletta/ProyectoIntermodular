@@ -129,79 +129,82 @@ Future <void> _saveProfile() async{
       return Center(
         child:  CircularProgressIndicator.adaptive());
     }
-    //Utiliza un padding, center, ConstrainedBox  SingleChildScrollView Form y dentro  de Form una column con CustomTextForm View:
-    return  Padding(
-      padding: EdgeInsets.all(40),
-      child: Center(
-        child: ConstrainedBox(
-          constraints:  BoxConstraints(
-            maxWidth: 400.0
-          ),
-          child: SingleChildScrollView(
-            child: Form(
-                key: _formKey,
-                child: Column(
-                  children:[
-                    const Text(
-                        'Modificar perfil',
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+    //Utiliza un scaffold,  padding, center, ConstrainedBox  SingleChildScrollView Form y dentro  de Form una column con CustomTextForm View:
+    return  Scaffold(
+      backgroundColor: Colors.transparent,
+      body: Padding(
+        padding: EdgeInsets.all(40),
+        child: Center(
+          child: ConstrainedBox(
+            constraints:  BoxConstraints(
+              maxWidth: 400.0
+            ),
+            child: SingleChildScrollView(
+              child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children:[
+                      const Text(
+                          'Modificar perfil',
+                          style: TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
+                      Divider(color: AppColors.dividerColor,  thickness: 1.5),
+                      SizedBox(height: 30),
+                      Text( 
+                        '$email',
+                        //meter style con thmeOf Context)
+                        textAlign: TextAlign.center,
                       ),
-                    Divider(color: AppColors.dividerColor,  thickness: 1.5),
-                    SizedBox(height: 30),
-                    Text( 
-                      '$email',
-                      //meter style con thmeOf Context)
-                      textAlign: TextAlign.center,
-                    ),
-                     SizedBox(
-                      height: 30,
-                    ),
-                ///NOMBRE DE USUARIO
-                    CustomTextFormField(
-                      controller: _userNameController,
-                      label: 'Nombre de Usuario',
-                      prefixIcon: Icons.account_circle,
-                      /// si se superan las validaciones, se devuelve null. Si no se devuelve un mensaje 
-                      validator: (value){
-                        return InputValidation.validateUserName(value);
-                      },
-                    ),
-            
-                    ///NOMBRE DE COMPLETO
-                    SizedBox(
-                      height: 15,
-                    ),
-                    CustomTextFormField(
-                      controller: _fullNameController,
-                      label: 'Nombre completo',
-                      prefixIcon: Icons.account_circle,
-                      /// si se superan las validaciones, se devuelve null. Si no se devuelve un mensaje 
-                      validator: (value){
-                          return InputValidation.validateFullName(value);
-                      },
-                    ),
-                    const SizedBox(
-                      height:30,
-                    ),
-                    SizedBox(
-                      height: 50,
-                      width: double.infinity,
-                      child: FilledButton.icon(
-                        onPressed: _isSaving ? null : _saveProfile,
-                        icon: _isSaving ? 
-                          CircularProgressIndicator.adaptive() : Icon(Icons.save_outlined),
-                        label: Text(
-                          _isSaving ? 'Guardando..' : 'Guardar cambios')),
-                    ),
-                  ]
+                       SizedBox(
+                        height: 30,
+                      ),
+                  ///NOMBRE DE USUARIO
+                      CustomTextFormField(
+                        controller: _userNameController,
+                        label: 'Nombre de Usuario',
+                        prefixIcon: Icons.account_circle,
+                        /// si se superan las validaciones, se devuelve null. Si no se devuelve un mensaje 
+                        validator: (value){
+                          return InputValidation.validateUserName(value);
+                        },
+                      ),
+              
+                      ///NOMBRE DE COMPLETO
+                      SizedBox(
+                        height: 15,
+                      ),
+                      CustomTextFormField(
+                        controller: _fullNameController,
+                        label: 'Nombre completo',
+                        prefixIcon: Icons.account_circle,
+                        /// si se superan las validaciones, se devuelve null. Si no se devuelve un mensaje 
+                        validator: (value){
+                            return InputValidation.validateFullName(value);
+                        },
+                      ),
+                      const SizedBox(
+                        height:30,
+                      ),
+                      SizedBox(
+                        height: 50,
+                        width: double.infinity,
+                        child: FilledButton.icon(
+                          onPressed: _isSaving ? null : _saveProfile,
+                          icon: _isSaving ? 
+                            CircularProgressIndicator.adaptive() : Icon(Icons.save_outlined),
+                          label: Text(
+                            _isSaving ? 'Guardando..' : 'Guardar cambios')),
+                      ),
+                    ]
+                  )
                 )
               )
             )
           )
-        )
-      );
+        ),
+    );
   }
 }
