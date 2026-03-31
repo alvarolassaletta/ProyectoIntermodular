@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:proyecto_intermodular/components/custom_text_form_field.dart';
 import 'package:proyecto_intermodular/components/gradient_background.dart';
 import 'package:proyecto_intermodular/core/app_colors.dart';
+import 'package:proyecto_intermodular/core/app_theme.dart';
 import 'package:proyecto_intermodular/services/auth_service.dart';
 import 'package:proyecto_intermodular/utils/auth_error_translator.dart';
 import 'package:proyecto_intermodular/utils/input_validation.dart';
@@ -174,7 +175,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Column(
                       children:[
                 
-                
                         //-----------------------------------------------------
                         //   EMAIL 
                         //----------------------------------------------------
@@ -223,8 +223,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           //controla posicion 
                           controlAffinity: ListTileControlAffinity.leading,
                           value: _rememberCredentials, 
-                          //activeColor 
-                          //checkColor
+                          activeColor: AppColors.authBackgroundButtonColor,
+                          checkColor: AppColors.authForegroundButtonColor,
                           onChanged:(bool? value){
                             setState((){
                               _rememberCredentials = value ?? false; 
@@ -245,7 +245,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             /// isLoading = false -> el boton no se ha pulsado, se muestra el texto 'iniciar sesion' y si se pulsa se llama al metodo signIn
                             /// isLoading = true -> se ha pulsado el boton , muestra  espiral de carga y se evita llamar al metodo de nuevo
                             onPressed: _isLoading ? null : _signIn,  
-                            child: _isLoading ? CircularProgressIndicator() : Text('Iniciar Sesión')
+                            style: AppTheme.authButtonStyle,
+                            child: _isLoading ? CircularProgressIndicator() : Text('Iniciar Sesión'),
                           ),
                         ),
                 
@@ -260,11 +261,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: TextButton(
                             onPressed: (){
                               context.push('/signup');
-                            }, child: Text('¿No tienes cuenta? Regístrate ',
-                              style: TextStyle(
-                                color: AppColors.primaryIconsColor
-                              ),
-                            ),
+                            }, child: Text('¿No tienes cuenta? Regístrate '),
                           ),
                         ),
 
@@ -286,9 +283,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                        
                         /// LOGIN WITH GOOGLE 
-                        
-                
-                
+              
                       ]
                     ))
                 ),

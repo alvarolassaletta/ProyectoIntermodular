@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../core/app_colors.dart';
 
 /// Contenedor personalizado  
-/// Actúa como fondo para las pantallas Login, SignUp y Splash 
+/// Actúa como fondo para las pantallas  Splash, Login, SignUp y ForgotPassword.
 /// Tambien se utiliza en HomeScreen para AppBar, NavigationBar y NavigationRail
 class GradientBackground extends StatelessWidget {
   

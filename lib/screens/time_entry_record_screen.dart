@@ -135,20 +135,22 @@ class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
           //-----------------------------------------------------
           //  PANTALLA DE NO HAY REGISTROS 
           //-----------------------------------------------------
-          // si la lista esta vacia de modo que no hay fichajes, se muestra este Center 
+          // Si la lista esta vacia de modo que no hay fichajes, se muestra este Center 
           if(timeEntries.isEmpty){
-            return const Center(
+            return Center(
               child:Column(
                 children: [
                   const Icon(Icons.error_outline, size: 64, color: Colors.redAccent),
                   const SizedBox(height: 16),
                   Text( 'No hay registros de fichajes todavía',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+                  style: Theme.of(context).textTheme.titleMedium,),
                 ],
               )
             );
           }
-
+          //-----------------------------------------------------
+          //  PANTALLA HISTORIAL DE FICHAJES 
+          //-----------------------------------------------------
           return Column(
             children: [
               Padding(
@@ -234,15 +236,7 @@ class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
                           Icons.download_rounded,
                           color: AppColors.primaryIconsColor,
                           ),    
-                        style: FilledButton.styleFrom(
-                          backgroundColor: AppColors.gradientBackgroundStart,
-                          foregroundColor: AppColors.primaryIconsColor,
-                          elevation: 4,
-                          shadowColor: Colors.black.withValues(),
-                          shape: RoundedRectangleBorder(
-                            borderRadius:   BorderRadius.circular(12),
-                          )
-                        )     
+                          //elimino la propiedad style porque ya estan aplicando estilos en el theme global      
                       ),
                     ),
                   ]
@@ -316,7 +310,7 @@ class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
                               ),
                               leading: Icon(
                                 IsActive ? Icons.access_time_filled : Icons.check_circle,
-                                color: IsActive ? Colors.orange: Colors.lightGreen
+                                color: IsActive ? AppColors.activeTimeEntryColor: AppColors.completedTimeEntryIcon,
                               )
                             ),
                           );
@@ -336,8 +330,6 @@ class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: _refresh,
         tooltip: 'Actualizar Historial',
-        backgroundColor: AppColors.gradientBackgroundStart,
-        foregroundColor: AppColors.primaryIconsColor,
         child: const Icon(Icons.refresh),
         )
 

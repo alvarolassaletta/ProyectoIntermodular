@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_intermodular/components/custom_text_form_field.dart';
 import 'package:proyecto_intermodular/core/app_colors.dart';
+import 'package:proyecto_intermodular/core/app_theme.dart';
 import 'package:proyecto_intermodular/models/profiles.dart';
 import 'package:proyecto_intermodular/services/auth_service.dart';
 import 'package:proyecto_intermodular/services/profile_service.dart';
@@ -144,19 +145,17 @@ Future <void> _saveProfile() async{
                   key: _formKey,
                   child: Column(
                     children:[
-                      const Text(
+                       Text(
                           'Modificar perfil',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
-                      Divider(color: AppColors.dividerColor,  thickness: 1.5),
+                      Divider(),
                       SizedBox(height: 30),
                       Text( 
                         '$email',
                         //meter style con thmeOf Context)
                         textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                        SizedBox(
                         height: 30,
@@ -204,7 +203,10 @@ Future <void> _saveProfile() async{
                           icon: _isSaving ? 
                             CircularProgressIndicator.adaptive() : Icon(Icons.save_outlined),
                           label: Text(
-                            _isSaving ? 'Guardando..' : 'Guardar cambios')),
+                            _isSaving ? 'Guardando..' : 'Guardar cambios'),
+                          style: AppTheme.authButtonStyle,
+                        ),
+                          
                       ),
                     ]
                   )

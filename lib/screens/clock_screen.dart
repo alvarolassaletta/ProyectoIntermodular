@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 ///intl para el formateo de fechas. Se puede hacer de forma nativa pero es mucho mas verboso
 import 'package:intl/intl.dart';
 import 'package:proyecto_intermodular/core/app_colors.dart';
+import 'package:proyecto_intermodular/core/app_theme.dart';
 import 'package:proyecto_intermodular/models/time_entries.dart';
 import 'package:proyecto_intermodular/services/auth_service.dart';
 import 'package:proyecto_intermodular/services/time_entry_service.dart';
@@ -152,19 +153,15 @@ class _ClockScreenState extends State<ClockScreen> {
                   //-----------------------------------------------------
                   //   TÍTULO CLOCK SCREEN Y ESTADO DE FICHAJE
                   //-----------------------------------------------------
-                const Text(
+                Text(
                   'Fichar',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    ),
+                  style: Theme.of(context).textTheme.titleLarge,
                   ),
-                Divider(color: AppColors.dividerColor,  thickness: 1.5),
+                Divider(),
                 SizedBox(height: 30),
                 SizedBox(
                   width: double.infinity,
                   child: Card(
-                    
                     elevation: 4,
                     shape:RoundedRectangleBorder(
                       borderRadius: BorderRadiusGeometry.circular(16)
@@ -178,7 +175,7 @@ class _ClockScreenState extends State<ClockScreen> {
                                 Text(
                                   isWorking ? 'FICHAJE ENTRADA ACTIVO' : 'DESCONECTADO',
                                   style: TextStyle(
-                                    color: isWorking ? const Color(0xFF10A915) : Colors.grey,
+                                    color: isWorking ? AppColors.activeTimeEntryColor : AppColors.completedTimeEntryColor,
                                     fontWeight: FontWeight.bold
                                   )
                                 ),
@@ -204,9 +201,9 @@ class _ClockScreenState extends State<ClockScreen> {
                   height:30 ,
                 ),
                 
-                  //-----------------------------------------------------
-                  //  BOTON  FICHAR 
-                  //-----------------------------------------------------
+                //-----------------------------------------------------
+                //  BOTON  FICHAR 
+                //-----------------------------------------------------
                 SizedBox(
                   height: 50,
                   width: double.infinity,
@@ -216,16 +213,8 @@ class _ClockScreenState extends State<ClockScreen> {
                     color: AppColors.primaryIconsColor,
                     ),
                     label: Text(isWorking ? 'Registrar Salida': 'Registrar Entrada '),
-                    style: FilledButton.styleFrom(
-                      backgroundColor: AppColors.gradientBackgroundStart,
-                      foregroundColor: AppColors.primaryIconsColor,
-                      elevation: 4,
-                      shadowColor: Colors.black.withValues(),
-                      shape: RoundedRectangleBorder(
-                        borderRadius:   BorderRadius.circular(12),
-                      )
-                  )     
-                  ),
+                  )  
+                  //elimino la propiedad style porque ya estan aplicando estilos en el theme global     
                 ),
               ]
             ),

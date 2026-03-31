@@ -18,7 +18,7 @@ class SummaryScreen extends StatefulWidget {
 
 
 class _SummaryScreenState extends State<SummaryScreen> {
-  @override
+  
   //servicio de TimeEntry para poder ejecutar las consultas
   TimeEntryService _timeEntryService = TimeEntryService();
   
@@ -270,7 +270,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                               icon: Icons.timer_outlined, 
                               label:  'Total horas trabajadas: ', 
                               value: totalDuration,
-                              hightlight:  true,
+                              highlight:  true,
                             ),
                             const SizedBox(height: 16),
                           ]
@@ -294,8 +294,6 @@ class _SummaryScreenState extends State<SummaryScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: _refresh,
         tooltip: 'Refrescar Cómputo',
-        backgroundColor: AppColors.gradientBackgroundStart,
-        foregroundColor: AppColors.primaryIconsColor,
         child: const Icon(Icons.refresh),
         )
 
@@ -314,7 +312,6 @@ class _SummaryScreenState extends State<SummaryScreen> {
       ),
       child: FilledButton.icon(
         onPressed: _pickDateRange,
-          
         label: Text(
           'Seleccionar rango de fechas',
          /*  _selectedDateRange !=null
@@ -324,16 +321,8 @@ class _SummaryScreenState extends State<SummaryScreen> {
         icon:  Icon(
           Icons.calendar_month,
           color: AppColors.primaryIconsColor,
-          ),    
-        style: FilledButton.styleFrom(
-          backgroundColor: AppColors.gradientBackgroundStart,
-          foregroundColor: AppColors.primaryIconsColor,
-          elevation: 4,
-          shadowColor: Colors.black.withValues(),
-          shape: RoundedRectangleBorder(
-            borderRadius:   BorderRadius.circular(12),
-          )
-        )     
+        ), 
+        //elimino la propiedad style porque ya se aplican los estilos de ThemeData   a lso filledButton
       ),
     );
   }

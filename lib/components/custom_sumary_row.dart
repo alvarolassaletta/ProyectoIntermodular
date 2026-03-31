@@ -8,14 +8,14 @@ class CustomSummaryRow  extends StatelessWidget{
   final IconData icon; 
   final String  label;
   final String value; 
-  final bool hightlight; 
+  final bool highlight; 
 
   const CustomSummaryRow({
     super.key,
     required this.icon,
     required this.label,
     required this.value,
-    this.hightlight = false,
+    this.highlight = false,
   }); 
 
  @override
@@ -28,13 +28,13 @@ class CustomSummaryRow  extends StatelessWidget{
           const SizedBox(width:12),
           Text(
             '$label',
-            style: TextStyle(fontSize: 15),
+            style: TextStyle(fontSize: 16),
           ),
           Text(
             value,
             style: TextStyle(
-              fontSize: hightlight ? 17 : 15,
-              fontWeight:  hightlight? FontWeight.bold : FontWeight.normal
+              fontSize: highlight ? 18 : 16,
+              fontWeight:  highlight? FontWeight.bold : FontWeight.normal
             )
           )
         ]

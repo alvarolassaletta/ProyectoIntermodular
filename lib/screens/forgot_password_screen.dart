@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:proyecto_intermodular/components/custom_text_form_field.dart';
 import 'package:proyecto_intermodular/components/gradient_background.dart';
 import 'package:proyecto_intermodular/core/app_colors.dart';
+import 'package:proyecto_intermodular/core/app_theme.dart';
 import 'package:proyecto_intermodular/services/auth_service.dart';
 import 'package:proyecto_intermodular/utils/input_validation.dart';
 import 'package:proyecto_intermodular/utils/snack_bar_messenger.dart';
@@ -167,12 +168,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        const Text(
+                         Text(
                           'Recuperar Contraseña',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
                         Divider(color: AppColors.dividerColor,  thickness: 1.5),
                         SizedBox(height: 30),
@@ -181,9 +179,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         //PEDIR EMAIL  Y ENVIAR CÓDIGO
                         //----------------------
                         if(_currentStep == RecoveryStep.email)...[
-                          const Text(
+                          Text(
                             'Ingresa tu correo electrónico para recibir un código de recuperación de 6 dígitos.',
                             textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           const  SizedBox(height: 20),
 
@@ -199,28 +198,43 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           ),
                           
                           SizedBox(
-                          height: 30,
+                            height: 30,
                           ), 
                         
                           SizedBox(
-                          height: 50,
-                          width: double.infinity,
-                          child: FilledButton(
-                            /// isLoading = false -> el boton no se ha pulsado, se muestra el texto 'Enviar Código' y si se pulsa se llama al metodo  para enviar el código
-                            /// isLoading = true -> se ha pulsado el boton , muestra  espiral de carga y se evita llamar al metodo de nuevo
-                            onPressed: _isLoading ? null : _sendRecoveryCode,  
-                            child: _isLoading ? CircularProgressIndicator() : Text('Enviar Código'),
+                            height: 50,
+                            width: double.infinity,
+                            child: FilledButton(
+                              /// isLoading = false -> el boton no se ha pulsado, se muestra el texto 'Enviar Código' y si se pulsa se llama al metodo  para enviar el código
+                              /// isLoading = true -> se ha pulsado el boton , muestra  espiral de carga y se evita llamar al metodo de nuevo
+                              onPressed: _isLoading ? null : _sendRecoveryCode,  
+                              child: _isLoading ? CircularProgressIndicator() : Text('Enviar Código'),
+                              style: AppTheme.authButtonStyle,
+                              ),
+                          ),
+                           
+                          SizedBox(
+                            height: 30,
+                          ), 
+                        
+                          SizedBox(
+                            height: 50, 
+                            child: TextButton(
+                              onPressed: (){
+                                context.pop('/login');
+                              }, child: Text(
+                                'Volver a inicio de sesión'),
                             ),
                           ),
                         ],
-
                         //----------------------
                         //PEDIR CÓDIGO OTP Y VERIFICARLO 
                         //----------------------
                         if(_currentStep==RecoveryStep.otp)...[
-                          const Text(
+                          Text(
                             'Introduce el código que hemos  enviado a tu correo electrónico',
                             textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           const  SizedBox(height: 20),
                           CustomTextFormField(
@@ -241,10 +255,24 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           height: 50,
                           width: double.infinity,
                           child: FilledButton(
-                            /// isLoading = false -> el boton no se ha pulsado, se muestra el texto 'Ve' y si se pulsa se llama al metodo  para enviar el código
-                            /// isLoading = true -> se ha pulsado el boton , muestra  espiral de carga y se evita llamar al metodo de nuevo
-                            onPressed: _isLoading ? null : _verifyOTPCode,  
-                            child: _isLoading ? CircularProgressIndicator() : Text('Verificar Código'),
+                              /// isLoading = false -> el boton no se ha pulsado, se muestra el texto 'Ve' y si se pulsa se llama al metodo  para enviar el código
+                              /// isLoading = true -> se ha pulsado el boton , muestra  espiral de carga y se evita llamar al metodo de nuevo
+                              onPressed: _isLoading ? null : _verifyOTPCode,  
+                              child: _isLoading ? CircularProgressIndicator() : Text('Verificar Código'),
+                              style: AppTheme.authButtonStyle,
+                            ),
+                          ),
+                           SizedBox(
+                            height: 30,
+                          ), 
+                        
+                          SizedBox(
+                            height: 50, 
+                            child: TextButton(
+                              onPressed: (){
+                                context.pop('/login');
+                              }, child: Text(
+                                'Volver a inicio de sesión'),
                             ),
                           ),
                         ],
@@ -254,9 +282,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         //CREAR  Y CONFIRMAR NUEVA CONTRASEÑA 
                         //----------------------
                         if(_currentStep == RecoveryStep.newPassword)...[
-                           const Text(
+                           Text(
                             'Crea la nueva contraseña. Debe ser mayor de 8 caracteres y contener al menos un numero y un caracter especial',
                             textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                           const  SizedBox(height: 20),
 
@@ -305,12 +334,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             child: FilledButton(
                               onPressed: _isLoading ? null : _changePassword,  
                               child: _isLoading ? CircularProgressIndicator() : Text('Cambiar Contraseña'),
-                              ),
+                              style: AppTheme.authButtonStyle,
+                            ),
                           ),
+                             
                           SizedBox(
                             height: 30,
                           ),
-                          
+
                           //----------------------
                           // VOLVER A INICIO DE SESIÓN
                           //----------------------

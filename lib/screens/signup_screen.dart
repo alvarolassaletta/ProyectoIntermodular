@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:proyecto_intermodular/components/custom_text_form_field.dart';
 import 'package:proyecto_intermodular/components/gradient_background.dart';
 import 'package:proyecto_intermodular/core/app_colors.dart';
+import 'package:proyecto_intermodular/core/app_theme.dart';
 import 'package:proyecto_intermodular/services/auth_service.dart';
 import 'package:proyecto_intermodular/utils/auth_error_translator.dart';
 import 'package:proyecto_intermodular/utils/input_validation.dart';
@@ -207,7 +208,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             /// isLoading = false -> el boton no se ha pulsado, se muestra el texto 'registrarse' y si se pulsa se llama al metodo signUp
                             /// isLoading = true -> se ha pulsado el boton , muestra  espiral de carga y se evita llamar al método de nuevo
                             onPressed: _isLoading ? null : _signUp,  
-                            child: _isLoading ? CircularProgressIndicator() : Text('Registrarse')
+                            style: AppTheme.authButtonStyle,
+                            child: _isLoading ? CircularProgressIndicator() : Text('Registrarse'),
                           ),
                         ),
                           SizedBox(
@@ -222,12 +224,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             onPressed: (){
                               context.pop('/login');
                             }, child: Text(
-                              '¿Ya tienes cuenta? Inicia sesión',
-                              style: TextStyle(
-                                color: AppColors.primaryIconsColor
-                              ),
-                            ),
-                          
+                              '¿Ya tienes cuenta? Inicia sesión'),
                           ),
                         ),
                       ]

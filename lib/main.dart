@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto_intermodular/core/app_theme.dart';
 import 'package:proyecto_intermodular/screens/splash_screen.dart';
 import 'package:proyecto_intermodular/supabase_config.dart';
 import 'package:proyecto_intermodular/utils/snack_bar_messenger.dart';
@@ -26,6 +27,9 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Aplicación de Fichajes',
       routerConfig: appRouter,
+      //estilos globales de la app,
+      theme:AppTheme.lightTheme,
+      // key para mostrar SnackBar desde cualquier parte de la app sin necesidad de un BuildContext específico
       scaffoldMessengerKey: scaffoldMessengerKey,
       // delegates que usa Flutter  para traducir los widgets  y controlar la dirección de texto flutter 
       localizationsDelegates:  const[
