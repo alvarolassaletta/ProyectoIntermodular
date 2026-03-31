@@ -175,7 +175,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       children:[
                 
                 
-                        /// EMAIL 
+                        //-----------------------------------------------------
+                        //   EMAIL 
+                        //----------------------------------------------------
                         CustomTextFormField(
                           controller: _emailController,
                           keyboardType: TextInputType.emailAddress,
@@ -191,7 +193,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 15,
                         ), 
                         
-                        ///CONTRASEÑA 
+                        //-----------------------------------------------------
+                        //   CONTRASEÑA
+                        //-----------------------------------------------------
                         CustomTextFormField(
                           controller: _passwordController,
                           isPassword: true,
@@ -210,7 +214,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 15
                           ),
                 
-                        /// RECORDAR EMAIL Y CONTRASEÑA 
+                        //-----------------------------------------------------
+                        //  RECORDAR EMAIL Y CONTRASEÑA
+                        //-----------------------------------------------------
                         /// cuando se marca, el valor de value se invierte  sin que haya que hacerlo manualmente
                         CheckboxListTile(
                           title: Text('Recordar email y contraseña'),
@@ -229,7 +235,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           height: 15,
                         ), 
                             
-                        /// INICIAR SESION - BUTTON 
+                        //-----------------------------------------------------
+                        //  BOTÓN INICIAR SESIÓN 
+                        //-----------------------------------------------------
                         SizedBox(
                           height: 50,
                           width: double.infinity,
@@ -244,8 +252,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           SizedBox(
                           height: 15,
                         ), 
-                        
-                        ///  NAVEGAR A SIGNUP SCREEN
+                        //-----------------------------------------------------
+                        // BOTON PARA NAVEGAR A SIGNUP SCREEN
+                        //-----------------------------------------------------
                         SizedBox(
                           height: 50, 
                           child: TextButton(
@@ -258,6 +267,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                         ),
+
+                        //-----------------------------------------------------
+                        //  ¿OLVIDASTE LA CONTRASEÑA?
+                        //-----------------------------------------------------
                         SizedBox(
                           height: 50, 
                           child: TextButton(
@@ -271,8 +284,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                           ),
                         ),
-                        // ¿OLVIDASTE LA CONTRASEÑA?
-                
+                       
                         /// LOGIN WITH GOOGLE 
                         
                 

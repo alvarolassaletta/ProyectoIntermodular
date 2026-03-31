@@ -44,7 +44,11 @@ class _SplashScreenState extends State<SplashScreen> {
     }
   }
 
-
+  //-----------------------------------------------------
+  // CARGA INICIAL
+  //-----------------------------------------------------
+  // Mientras se comprueba la sesión, se muestra una pantalla de carga con un fondo degradado y un indicador circular
+  // si hay sesión abierta, navega a HomeScreen, si no, navega a LoginScreen
   @override
   Widget build(BuildContext context) {
     return Scaffold(

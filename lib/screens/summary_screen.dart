@@ -116,11 +116,6 @@ class _SummaryScreenState extends State<SummaryScreen> {
     }
   }
 
-  
-
-
-
-
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -133,6 +128,9 @@ class _SummaryScreenState extends State<SummaryScreen> {
           if(snapshot.connectionState == ConnectionState.waiting && !snapshot.hasData){
             return const Center(child:CircularProgressIndicator.adaptive());
           }
+          //-----------------------------------------------------
+          // PANTALLA DE ERROR 
+          //-----------------------------------------------------
            //Si hay error, mostramos este widget  Center
           if(snapshot.hasError){
             return Center(
@@ -166,13 +164,19 @@ class _SummaryScreenState extends State<SummaryScreen> {
           }
           final timeEntries = snapshot.data ?? [];
 
+          //-----------------------------------------------------
+          //  PANTALLA DE NO HAY REGISTROS EN ESTE RANGO DE FECHAS
+          //-----------------------------------------------------
           // si la lista esta vacia de modo que no hay fichajes, se muestra este Center 
+
           if(timeEntries.isEmpty){
             return Padding(
               padding: const EdgeInsets.all(40.0),
               child: ListView( // con  ListView para que el botón se quede arriba
                 children: [
-                  //boton para filtrar  por fechas
+                  //-----------------------------------------------------
+                  // BOTON PARA SELECCIONAR RANGO DE FECHAS
+                  //-----------------------------------------------------
                   _buildDateRangeButton(),
                   
                   const SizedBox(height: 100), // Empuja el mensaje hacia el centro
@@ -211,16 +215,20 @@ class _SummaryScreenState extends State<SummaryScreen> {
                   constraints: BoxConstraints(
                     maxWidth: 400,
                   ),
-
                   child: ListView(
                     children: [
-                      // boton para seleccionar un rango de fechas 
+                      //-----------------------------------------------------
+                      // BOTON PARA SELECCIONAR RANGO DE FECHAS
+                      //-----------------------------------------------------
                       _buildDateRangeButton(),
 
                       SizedBox(
                         height: 48,
                       ),
-                  
+
+                      //-----------------------------------------------------
+                      // RESUMEN DE HORAS TRABAJADAS
+                      //-----------------------------------------------------
                       Card(
                         elevation: 4,
                         shadowColor: Colors.black26,
@@ -279,6 +287,9 @@ class _SummaryScreenState extends State<SummaryScreen> {
           );
         }
       ),
+      //-----------------------------------------------------
+      // BOTON REFRESH
+      //-----------------------------------------------------
       //Boton para refresar  los datos manualmente sin cambiar el rango de fechas. Por ejemplo, si alguien ficha en otra pestaña y se quiere ver el cómputo actualizado.
       floatingActionButton: FloatingActionButton(
         onPressed: _refresh,
@@ -290,7 +301,10 @@ class _SummaryScreenState extends State<SummaryScreen> {
 
     );
   }
-  
+
+  //-----------------------------------------------------
+  //  DISEÑO BOTON PARA SELECCIONAR RANGO DE FECHAS
+  //-----------------------------------------------------
   ///  boton para  seleccionar rango de fechas
   Widget _buildDateRangeButton(){
     return  ConstrainedBox(

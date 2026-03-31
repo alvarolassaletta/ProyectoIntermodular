@@ -149,11 +149,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
 
 
-
-  
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -181,6 +176,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         ),
                         Divider(color: AppColors.dividerColor,  thickness: 1.5),
                         SizedBox(height: 30),
+
                         //----------------------
                         //PEDIR EMAIL  Y ENVIAR CÓDIGO
                         //----------------------
@@ -223,7 +219,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                         //----------------------
                         if(_currentStep==RecoveryStep.otp)...[
                           const Text(
-                            'Introduce el codigo de 6 dígitos que hemos  enviado a tu correo electrónico',
+                            'Introduce el código que hemos  enviado a tu correo electrónico',
                             textAlign: TextAlign.center,
                           ),
                           const  SizedBox(height: 20),
@@ -299,7 +295,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           SizedBox(
                             height: 30,
                           ), 
+
+                          //----------------------
                           //BOTON PARA CAMBIAR CONTRASEÑA 
+                          //----------------------
                           SizedBox(
                             height: 50,
                             width: double.infinity,
@@ -311,7 +310,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           SizedBox(
                             height: 30,
                           ),
+                          
+                          //----------------------
                           // VOLVER A INICIO DE SESIÓN
+                          //----------------------
                           SizedBox(
                             height: 50, 
                             child: TextButton(

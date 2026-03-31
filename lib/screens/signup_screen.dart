@@ -108,7 +108,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child:  Column(
                       children:[
                 
-                        ///NOMBRE DE USUARIO
+                        //-----------------------------------------------------
+                        //  NOBMRE DE USUARIO
+                        //-----------------------------------------------------
                         CustomTextFormField(
                           controller: _userNameController,
                           label: 'Nombre de Usuario',
@@ -119,7 +121,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           },
                         ),
                 
-                        ///NOMBRE DE COMPLETO
+                        //-----------------------------------------------------
+                        //  NOMBRE COMPLETO
+                        //-----------------------------------------------------
                         SizedBox(
                           height: 15,
                         ),
@@ -136,7 +140,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           height: 15,
                         ),
                         
-                        /// EMAIL 
+                        //-----------------------------------------------------
+                        //EMAIL
+                        //-----------------------------------------------------
                         CustomTextFormField(
                           controller: _emailController,
                           keyboardType: TextInputType.emailAddress,
@@ -151,7 +157,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           height: 15,
                         ),
                         
-                        ///CONTRASEÑA 
+                        //-----------------------------------------------------
+                        //CONTRASEÑA 
+                        //-----------------------------------------------------
                         CustomTextFormField(
                           controller:_passwordController,
                           isPassword: true,
@@ -166,7 +174,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           height: 15,
                         ),
                 
-                        ///CONFIRMAR CONTRASEÑA
+                        //-----------------------------------------------------
+                        // CONFIRMAR CONTRASEÑA 
+                        //-----------------------------------------------------
                         CustomTextFormField(
                           controller: _confirmPasswordController,
                           isPassword: true,
@@ -187,7 +197,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         SizedBox(
                           height: 15,
                         ),
-                        /// INICIAR SESION - BUTTON 
+                        //-----------------------------------------------------
+                        // REGISTRARSE  
+                        //-----------------------------------------------------
                         SizedBox(
                           height: 50,
                           width: double.infinity,
@@ -201,7 +213,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           SizedBox(
                           height: 15,
                         ), 
-                        
+                        //-----------------------------------------------------
+                        // ¿YA TIENES CUENTA? INICIA SESIÓN
+                        //-----------------------------------------------------
                         SizedBox(
                           height: 50, 
                           child: TextButton(

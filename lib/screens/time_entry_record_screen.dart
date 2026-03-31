@@ -96,7 +96,9 @@ class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
           if(snapshot.connectionState == ConnectionState.waiting && !snapshot.hasData){
             return const Center(child:CircularProgressIndicator.adaptive());
           }
-
+          //-----------------------------------------------------
+          // PANTALLA DE ERROR 
+          //-----------------------------------------------------
           //Si hay error, mostramos este widget  Center
           if(snapshot.hasError){
             return Center(
@@ -130,6 +132,9 @@ class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
           }
           final timeEntries = snapshot.data ?? [];
 
+          //-----------------------------------------------------
+          //  PANTALLA DE NO HAY REGISTROS 
+          //-----------------------------------------------------
           // si la lista esta vacia de modo que no hay fichajes, se muestra este Center 
           if(timeEntries.isEmpty){
             return const Center(
@@ -152,7 +157,7 @@ class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children:[
                     //-----------------------------------------------------
-                    // Barra de busqueda. Permite buscar registros por fecha
+                    // BARA DE BÚSQUEDA. PERMITE BUSCAR FICHAJES POR FECHA (dd/MM)
                     //-----------------------------------------------------
                     Expanded(
                       child: Container(
@@ -210,7 +215,7 @@ class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
                     SizedBox(width: 10),
 
                     //-----------------------------------------------------
-                    // FilledButton apra descargar/compartir fichajes 
+                    // FILLED BUTTON PARA DESCARGAR HISTORIAL DE FICHAJES
                     //-----------------------------------------------------
                     SizedBox(
                       height:48,
@@ -243,7 +248,9 @@ class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
                   ]
                 ),
               ),
-
+                //-----------------------------------------------------
+                // LISTA DE FICHAJES 
+                //-----------------------------------------------------
               Expanded(
                 child: RefreshIndicator(
                   onRefresh: _refresh,
@@ -322,7 +329,9 @@ class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
           );
         },
       ),
-      //Boton  en Scaffold para  actualizar el historial
+          //-----------------------------------------------------
+          // FLOATING ACTION BUTTON PARA REFRESCAR LA LISTA DE FICHAJES
+          //-----------------------------------------------------
       // sin este botton llamando a refresh, no  apacecen fichajes nuevos realizados al navegar a clockScreen
       floatingActionButton: FloatingActionButton(
         onPressed: _refresh,

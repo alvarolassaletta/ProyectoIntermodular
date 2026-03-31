@@ -161,7 +161,9 @@ Future <void> _saveProfile() async{
                        SizedBox(
                         height: 30,
                       ),
-                  ///NOMBRE DE USUARIO
+                        //-----------------------------------------------------
+                        //   NOMBRE DE USUARIO 
+                        //----------------------------------------------------
                       CustomTextFormField(
                         controller: _userNameController,
                         label: 'Nombre de Usuario',
@@ -172,7 +174,9 @@ Future <void> _saveProfile() async{
                         },
                       ),
               
-                      ///NOMBRE DE COMPLETO
+                        //-----------------------------------------------------
+                        //   NOMBRE COMPLETO
+                        //----------------------------------------------------
                       SizedBox(
                         height: 15,
                       ),
@@ -188,6 +192,10 @@ Future <void> _saveProfile() async{
                       const SizedBox(
                         height:30,
                       ),
+                      
+                        //-----------------------------------------------------
+                        //  BOTON GUARDAR CAMBIOS 
+                        //-----------------------------------------------------
                       SizedBox(
                         height: 50,
                         width: double.infinity,

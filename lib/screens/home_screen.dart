@@ -117,6 +117,9 @@ class _HomeScreenState extends State<HomeScreen> {
           decoration: GradientBackground.backgroundDecorationWithShadow(const Offset(0,4))
         ),
         actions:[ 
+          //----------------------------------------------------
+          //   CERRAR SESIÓN (MOVIL) 
+          //-----------------------------------------------------
           Padding(
             //padding solo a la derecha para separar el IconButton del borde derecho
             padding: const EdgeInsets.only(right: 16.0),
@@ -134,7 +137,9 @@ class _HomeScreenState extends State<HomeScreen> {
       //Si la pantalla es de movil se muestra el AppBar.
       //Si es desktop, el appBar no se muestra
       appBar: isDesktop ? null : mobileAppBar,
-
+      //-----------------------------------------------------
+      //   NAVIGATION BAR ( SOLO MOVIL) 
+      //-----------------------------------------------------
       // Si la pantalla es de movil,  mostramos el NavigatioBar, En caso contrario, no se muestra el navigationBar
       bottomNavigationBar:  isDesktop ? null : Container(
         decoration: GradientBackground.backgroundDecoration,
@@ -148,7 +153,9 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Row(
         children: [
-          //  NAVIGATION RAIL LATERAL (SOLO PC)
+          //-----------------------------------------------------
+          //  NAVIGATION RAIL ( SOLO DESKTOP)
+          //-----------------------------------------------------
           if (isDesktop)
             Container(
               width: 150,
@@ -171,7 +178,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-                  
+                  //----------------------------------------------------
+                  //   CERRAR SESIÓN (DESKTOP) 
+                  //----------------------------------------------------
                   // Botón de Cerrar Sesión anclado abajo del todo en PC
                   Padding(
                     padding: const EdgeInsets.only(bottom: 24.0),
@@ -184,8 +193,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            
+          //----------------------------------------------------- 
           // AREA A OCUPAR POR LAS PANTALLAS ANIDADAS DE HOME SCREEN (fichar, historial, perfil y resumen)
+          //-----------------------------------------------------
           // La pantalla 'anidada' actual ocupara el espacio restante
           Expanded(
               child: widget.navigationShell,
