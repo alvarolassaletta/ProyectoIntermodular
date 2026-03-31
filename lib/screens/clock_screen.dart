@@ -149,6 +149,9 @@ class _ClockScreenState extends State<ClockScreen> {
             child: Column(
               mainAxisAlignment:MainAxisAlignment.center,
               children:[
+                  //-----------------------------------------------------
+                  //   TÍTULO CLOCK SCREEN Y ESTADO DE FICHAJE
+                  //-----------------------------------------------------
                 const Text(
                   'Fichar',
                   style: TextStyle(
@@ -201,17 +204,29 @@ class _ClockScreenState extends State<ClockScreen> {
                   height:30 ,
                 ),
                 
-                
+                  //-----------------------------------------------------
+                  //  BOTON  FICHAR 
+                  //-----------------------------------------------------
                 SizedBox(
                   height: 50,
                   width: double.infinity,
                   child: FilledButton.icon(
                     onPressed: _isProcessing ? null : _handleClockInClockOut,  
-                    icon: _isProcessing ? CircularProgressIndicator() : Icon(isWorking? Icons.run_circle : Icons.work),
+                    icon: _isProcessing ? CircularProgressIndicator() : Icon(isWorking? Icons.run_circle : Icons.work,
+                    color: AppColors.primaryIconsColor,
+                    ),
                     label: Text(isWorking ? 'Registrar Salida': 'Registrar Entrada '),
+                    style: FilledButton.styleFrom(
+                      backgroundColor: AppColors.gradientBackgroundStart,
+                      foregroundColor: AppColors.primaryIconsColor,
+                      elevation: 4,
+                      shadowColor: Colors.black.withValues(),
+                      shape: RoundedRectangleBorder(
+                        borderRadius:   BorderRadius.circular(12),
+                      )
+                  )     
                   ),
                 ),
-                
               ]
             ),
           ),
