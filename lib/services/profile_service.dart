@@ -9,7 +9,7 @@ class ProfileService{
    final SupabaseClient _supabase = SupabaseConfig.client; 
 
    /// SELECT 
-   ///Busca el profiles por el id . Si lo encuentra devuelve un objeto Profile. En caso contrario devuelve null 
+   ///Busca el profiles por el id . Si lo encuentra devuelve un objeto Profile. Si no lo encuentra devuelve null.
 
   Future <Profile?> getProfile( String id) async{
     try{
@@ -20,11 +20,9 @@ class ProfileService{
 
       return  data != null ? Profile.fromMap(data) : null; 
     }on PostgrestException catch(e){
-      print('Error DB : ${e.message} , codigo: ${e.code}');
-      return null; 
+      throw Exception('Error al obtener el perfil: ${e.message} , codigo: ${e.code}');
     }catch(e){
-      print('Error: $e'); 
-      return null; 
+      throw Exception('Error inesperado al obtener el perfil');
     }
   }
     
@@ -38,11 +36,9 @@ class ProfileService{
       return data.map((profileMap)=> Profile.fromMap(profileMap)).toList(); 
 
     } on PostgrestException catch(e){
-      print('Error DB : ${e.message} , codigo: ${e.code}');
-      return []; 
+     throw Exception('Error al obtener los perfiles: ${e.message} , codigo: ${e.code}');
     }catch(e){
-      print('Error: $e'); 
-      return []; 
+      throw Exception('Error inesperado al obtener los perfiles');
     }
   }
 

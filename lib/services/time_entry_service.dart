@@ -59,11 +59,9 @@ class TimeEntryService{
       return data != null ? TimeEntry.fromMap(data) : null; 
 
     } on PostgrestException catch(e){
-      print('Error DB: ${e.message} , codigo: ${e.code}');
-      return null; 
+      throw Exception('Error DB: ${e.message} , codigo: ${e.code}');
     }catch(e){
-      print('Error $e'); 
-      return null; 
+      throw Exception('Error $e'); 
     }
   }
 
@@ -78,11 +76,9 @@ class TimeEntryService{
       return data.map((timeEntryMap)=> TimeEntry.fromMap(timeEntryMap) ).toList(); 
 
     }on PostgrestException catch(e){
-      print('Error DB: ${e.message} , codigo: ${e.code}');
-      return []; 
+      throw Exception('Error DB: ${e.message} , codigo: ${e.code}');
     }catch(e){
-      print('Error $e'); 
-      return []; 
+      throw Exception('Error $e'); 
     }
   }
 
@@ -103,18 +99,17 @@ class TimeEntryService{
       return data.map((timeEntryMap)=> TimeEntry.fromMap(timeEntryMap) ).toList(); 
 
     }on PostgrestException catch(e){
-      print('Error DB al filtrar: ${e.message} , codigo: ${e.code}');
-      return []; 
+      throw Exception('Error DB al filtrar: ${e.message} , codigo: ${e.code}');
+     
     }catch(e){
-      print('Error al filtrar $e'); 
-      return []; 
+      throw Exception('Error al filtrar $e'); 
     }
   }
 
 
   /// SELECT - OBTENER ÚLTIMO FICHAJE 
   /// Devuelve el último registro donde clockOut no sea null, si existe. Si no, devuelve null
-  /// Devolvera null en casos excepcionales: tabla timeEntry vacia, perdida de conexión a internet, etc
+  /// Devolvera null si no hay fichajes completados
   
   Future<TimeEntry?> getLastCompletedTimeEntry(String userId) async{
     try{
@@ -128,11 +123,9 @@ class TimeEntryService{
       .maybeSingle();
       return data != null ? TimeEntry.fromMap(data) : null; 
     } on PostgrestException catch(e){
-       print('Error DB: ${e.message} , codigo: ${e.code}');
-       return null;
+       throw Exception('Error DB: ${e.message} , codigo: ${e.code}');
     }catch(e){
-      print('Error $e'); 
-      return null; 
+      throw Exception('Error $e'); 
     }
   }
   

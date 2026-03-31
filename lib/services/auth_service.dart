@@ -6,7 +6,7 @@ class AuthService{
 
   ///REGISTRAR USUARIO - SIGN UP 
   ///Método para registrar un usuario  con  email y contraseña  usando el método auth.signUp
-  ///Supabase enviía un correo de confirmación  que el usuario debe verificar 
+  ///Supabase envía un correo de confirmación  que el usuario debe verificar 
   ///Devuelve un Objeto AuthResponse que usaremos para obtener información del usuario y de la sesion
   ///Usamos la propiedad data para pasar  nombre de usuario y nombre completo.
   ///Cunado se activa este método, se activara un trigger  que llamará a un método para hacer la inserción del usuario en la tabla profiles
@@ -15,6 +15,7 @@ class AuthService{
      required String password, 
      required String userName,
      required String fullName}) async {
+
       try{
         return await _supabase.auth.signUp(
           email:email,
@@ -24,13 +25,12 @@ class AuthService{
             'full_name': fullName,
           }
         );
-      } on AuthException catch(e){
+      } on AuthException catch(_){
         ///relanza la misma excepcion  que fue capturada sin crear una nueva
         rethrow; 
       } catch(e){
         throw Exception('Error inesperado al registrarse $e}');
       }
-     
   }
   
   ///  INICIAR SESION - SIGN IN 
@@ -39,7 +39,7 @@ class AuthService{
   Future <AuthResponse> signIn({required String email, required  String password}) async {
     try{
       return await  _supabase.auth.signInWithPassword(email: email, password: password); 
-    } on AuthException catch(e){
+    } on AuthException catch(_){
         //rethow necesario para que se devuelva la AuthExcepcion
         rethrow; 
     } catch(e){
@@ -53,7 +53,7 @@ class AuthService{
   Future <void>  signOut () async {
     try{
       return await  _supabase.auth.signOut();
-    } on AuthException catch(e){
+    } on AuthException catch(_){
       //rethow necesario para que se devuelva la AuthExcepcion
       rethrow;
     } catch(e){
@@ -76,7 +76,7 @@ class AuthService{
     try{
       await _supabase.auth.resetPasswordForEmail(email);
     }catch(e){
-      print('Error al enviat OTP: $e');
+      
       //Lanza la excepcion para que se atrape en la pantalla para que  se pueda mostrar el SnackBar
       rethrow;
     }
@@ -95,7 +95,7 @@ class AuthService{
       return response.session !=null;
 
     }catch(e){
-      print('Error al verificar OTP: $e');
+      
       return false; 
     }
   }
@@ -111,7 +111,6 @@ class AuthService{
         )
       );
     }catch(e){
-      print('Error al actualizar contraseña: $e');
       rethrow; 
     }
   }
