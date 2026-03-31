@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 ///intl para el formateo de fechas. Se puede hacer de forma nativa pero es mucho mas verboso
 import 'package:intl/intl.dart';
 import 'package:proyecto_intermodular/core/app_colors.dart';
-import 'package:proyecto_intermodular/core/app_theme.dart';
 import 'package:proyecto_intermodular/models/time_entries.dart';
 import 'package:proyecto_intermodular/services/auth_service.dart';
 import 'package:proyecto_intermodular/services/time_entry_service.dart';
@@ -48,8 +47,8 @@ class _ClockScreenState extends State<ClockScreen> {
 
   /// Obtiene el fichaje de entrada del usuario  en sesión, si existe. Si no, queda en null 
   Future <void> _loadActiveEntry() async{
-    setState(()=>{
-      _isLoading = true
+    setState((){
+      _isLoading = true;
     });
     try{
       final userId = _authService.currentUser?.id; 
@@ -81,8 +80,8 @@ class _ClockScreenState extends State<ClockScreen> {
   /// FICHAJE SALIDA: Si hay un fichaje activo, se realiza el fichaje de salida
 
   Future <void> _handleClockInClockOut() async{
-    setState(()=>{
-        _isProcessing= true
+    setState((){
+        _isProcessing= true;
     });
 
     try{
@@ -100,7 +99,7 @@ class _ClockScreenState extends State<ClockScreen> {
           });
           // HH:mm en formato 24 horas y si la hora solo tiena cifra, coloca un 0 delante. Hace lo mismo con los minutos 
           final clockInHour = DateFormat('HH:mm').format(entry!.clockIn.toLocal());
-          SnackBarMessenger.showSucces('Fichaje de entrada realizado correctamente a las ${clockInHour}');
+          SnackBarMessenger.showSucces('Fichaje de entrada realizado correctamente a las $clockInHour');
         }
       } else{
         //fichaje de salida
@@ -114,7 +113,7 @@ class _ClockScreenState extends State<ClockScreen> {
           });
           final currentTime = DateTime.now();
           final clockOutHour = DateFormat('HH:mm').format(currentTime);
-          SnackBarMessenger.showSucces('Fichaje de salida correcto a las  ${clockOutHour}'); 
+          SnackBarMessenger.showSucces('Fichaje de salida correcto a las  $clockOutHour'); 
         }
       }
   
@@ -184,7 +183,7 @@ class _ClockScreenState extends State<ClockScreen> {
                                 ),
                                 Text(
                                   isWorking 
-                                  ? '${dateFormat.format(activeTimeEntry!.clockIn.toLocal())}'
+                                  ? dateFormat.format(activeTimeEntry!.clockIn.toLocal())
                                   : lastTimeEntry!=null 
                                     ?'Última salida : ${dateFormat.format(lastTimeEntry!.clockOut!.toLocal())}'
                                     : 'Aún no hay registros' ,

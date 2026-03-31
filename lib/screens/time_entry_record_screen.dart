@@ -18,7 +18,7 @@ class TimeEntryRecordScreen extends StatefulWidget {
 
 class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
   
-  TimeEntryService _timeEntryService = TimeEntryService();
+  final TimeEntryService _timeEntryService = TimeEntryService();
 
   late Future<List<TimeEntry>> _futureTimeEntries; 
 
@@ -274,7 +274,7 @@ class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
                           createdAt);
                       
                           //si no hay fichaje de salida, el fichaje esta en curso 
-                          bool IsActive = timeEntry.clockOut ==null; 
+                          bool isActive = timeEntry.clockOut ==null; 
                                       
                           String totalTime = TimeUtils.calculateDuration(timeEntry.clockIn.toLocal(), timeEntry.clockOut?.toLocal());
                       
@@ -286,31 +286,31 @@ class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
                               //si el fichakje esta activo, que tengo un sobreado
-                              side: IsActive ? BorderSide(color: Colors.lightGreen, width: 1.5) : BorderSide.none),
+                              side: isActive ? BorderSide(color: Colors.lightGreen, width: 1.5) : BorderSide.none),
                           
                             child: ListTile(
                               minVerticalPadding: 8,
                               title: Text(
-                               'Día ${clockIndayFormatted} - ${clockOutDarFormatted}',
+                               'Día $clockIndayFormatted - $clockOutDarFormatted',
                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                               subtitle: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(children:[
-                                    Text('Entrada: ${timeClockInFormatted} '),
+                                    Text('Entrada: $timeClockInFormatted '),
                                     SizedBox(width: 36),
-                                    Text('Salida: ${timeClockOutFormatted}'),
+                                    Text('Salida: $timeClockOutFormatted'),
                                     ]
                                   ),
                                   SizedBox(height: 8),
-                                  Text('Tiempo trabajado: ${totalTime}'),
+                                  Text('Tiempo trabajado: $totalTime'),
                                   SizedBox(height: 8),
-                                  Text('Fecha registro : ${createdAt}')
+                                  Text('Fecha registro : $createdAt')
                                 ],
                               ),
                               leading: Icon(
-                                IsActive ? Icons.access_time_filled : Icons.check_circle,
-                                color: IsActive ? AppColors.activeTimeEntryColor: AppColors.completedTimeEntryIcon,
+                                isActive ? Icons.access_time_filled : Icons.check_circle,
+                                color: isActive ? AppColors.activeTimeEntryColor: AppColors.completedTimeEntryIcon,
                               )
                             ),
                           );

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_intermodular/components/custom_text_form_field.dart';
-import 'package:proyecto_intermodular/core/app_colors.dart';
 import 'package:proyecto_intermodular/core/app_theme.dart';
 import 'package:proyecto_intermodular/models/profiles.dart';
 import 'package:proyecto_intermodular/services/auth_service.dart';
@@ -75,7 +74,7 @@ Future<void> _loadProfile ()async{
       }
 
   } catch(e){
-    SnackBarMessenger.showError(" Error al cargar el perfil: ${e}");
+    SnackBarMessenger.showError(" Error al cargar el perfil: $e");
   } finally{
     if(mounted){
       setState(() {
@@ -152,7 +151,7 @@ Future <void> _saveProfile() async{
                       Divider(),
                       SizedBox(height: 30),
                       Text( 
-                        '$email',
+                        email,
                         //meter style con thmeOf Context)
                         textAlign: TextAlign.center,
                         style: Theme.of(context).textTheme.titleMedium,

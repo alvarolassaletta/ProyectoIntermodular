@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:proyecto_intermodular/components/gradient_background.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
 import  '../services/auth_service.dart'; 
-import './login_screen.dart';
-import './signup_screen.dart'; 
 
 
 class SplashScreen extends StatefulWidget {

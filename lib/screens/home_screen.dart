@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:go_router/src/route.dart';
 import 'package:proyecto_intermodular/components/gradient_background.dart';
 import 'package:proyecto_intermodular/core/app_colors.dart';
 import 'package:proyecto_intermodular/services/auth_service.dart';

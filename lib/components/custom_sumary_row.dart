@@ -27,7 +27,7 @@ class CustomSummaryRow  extends StatelessWidget{
           Icon(icon, color: AppColors.primaryIconsColor),
           const SizedBox(width:12),
           Text(
-            '$label',
+            label,
             style: TextStyle(fontSize: 16),
           ),
           Text(

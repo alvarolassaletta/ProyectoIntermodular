@@ -207,9 +207,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             child: FilledButton(
                               /// isLoading = false -> el boton no se ha pulsado, se muestra el texto 'Enviar Código' y si se pulsa se llama al metodo  para enviar el código
                               /// isLoading = true -> se ha pulsado el boton , muestra  espiral de carga y se evita llamar al metodo de nuevo
-                              onPressed: _isLoading ? null : _sendRecoveryCode,  
+                              onPressed: _isLoading ? null : _sendRecoveryCode,
+                              style: AppTheme.authButtonStyle,  
                               child: _isLoading ? CircularProgressIndicator() : Text('Enviar Código'),
-                              style: AppTheme.authButtonStyle,
                               ),
                           ),
                            
@@ -257,9 +257,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                           child: FilledButton(
                               /// isLoading = false -> el boton no se ha pulsado, se muestra el texto 'Ve' y si se pulsa se llama al metodo  para enviar el código
                               /// isLoading = true -> se ha pulsado el boton , muestra  espiral de carga y se evita llamar al metodo de nuevo
-                              onPressed: _isLoading ? null : _verifyOTPCode,  
+                              onPressed: _isLoading ? null : _verifyOTPCode,
+                              style: AppTheme.authButtonStyle,  
                               child: _isLoading ? CircularProgressIndicator() : Text('Verificar Código'),
-                              style: AppTheme.authButtonStyle,
                             ),
                           ),
                            SizedBox(
@@ -332,9 +332,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             height: 50,
                             width: double.infinity,
                             child: FilledButton(
-                              onPressed: _isLoading ? null : _changePassword,  
+                              onPressed: _isLoading ? null : _changePassword,
+                              style: AppTheme.authButtonStyle,  
                               child: _isLoading ? CircularProgressIndicator() : Text('Cambiar Contraseña'),
-                              style: AppTheme.authButtonStyle,
                             ),
                           ),
                              

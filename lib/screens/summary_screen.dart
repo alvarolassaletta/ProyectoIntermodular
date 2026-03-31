@@ -20,7 +20,7 @@ class SummaryScreen extends StatefulWidget {
 class _SummaryScreenState extends State<SummaryScreen> {
   
   //servicio de TimeEntry para poder ejecutar las consultas
-  TimeEntryService _timeEntryService = TimeEntryService();
+  final TimeEntryService _timeEntryService = TimeEntryService();
   
   final _authServive  = AuthService(); 
 
@@ -117,6 +117,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
   }
 
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
