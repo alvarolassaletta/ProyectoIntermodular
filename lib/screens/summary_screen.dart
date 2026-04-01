@@ -62,8 +62,10 @@ class _SummaryScreenState extends State<SummaryScreen> {
   /// widget FutureBuilder, el cual necesita recibir el Future intacto.
   /// Si hay rango de fechas, carga los fichajes dentro de ese rango
   void _loadTimeEntries(){
-
+    
     final userId  = _authServive.currentUser?.id;
+    //print('userId: $userId'); 
+   
 
     if (userId ==null){
       _futureTimeEntries= Future.value([]);
@@ -75,6 +77,8 @@ class _SummaryScreenState extends State<SummaryScreen> {
     } else{
       final start = _selectedDateRange!.start;
       final end = _selectedDateRange!.end.add(Duration(days:1));
+      //print('start: $start'); 
+      //print('end: $end');
 
       _futureTimeEntries = _timeEntryService.getTimeEntriesByDateRange(userId, start, end);
     }
@@ -200,8 +204,9 @@ class _SummaryScreenState extends State<SummaryScreen> {
 
           final String startDateString = _dateFormat.format(_selectedDateRange!.start);
           final String  endDateString = _dateFormat.format(_selectedDateRange!.end);
-          final String lastRealClockOut = timeEntries.last.clockOut != null 
-          ? _dateFormat.format(timeEntries.first.clockOut!.toLocal())
+          final completedEntry = timeEntries.where((entry) =>entry.clockOut != null).firstOrNull;
+          final String lastRealClockOut = completedEntry != null 
+          ? _dateFormat.format(completedEntry.clockOut!.toLocal())
           : 'En Curso'; 
           final String totalDuration = TimeUtils.calculateTotalDuration(timeEntries); 
 
