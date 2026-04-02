@@ -143,7 +143,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.error_outline, size: 64, color: Colors.redAccent),
+                  const Icon(Icons.error_outline, size: 64, color: AppColors.noEntriesIconColor),
                   const SizedBox(height: 16),
                   const Text(
                     '¡Whoops! Ha ocurrido un problema de conexión',
@@ -153,8 +153,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                     height:16
                   ),
                   Text('${snapshot.error}',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,
-                    color: Colors.redAccent),
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                   const SizedBox(height: 36),
                   // Cuando se pulse el boton, desapare este widget de error y se muestra el CircularProgressIndicador. El ConnetionState sera waiting
@@ -189,7 +188,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
                   
                   const Column(
                     children: [
-                      Icon(Icons.error_outline, size: 64, color: Colors.redAccent),
+                      Icon(Icons.error_outline, size: 64, color: AppColors.noEntriesIconColor),
                       SizedBox(height: 16),
                       Text(
                         'No hay registros en estas fechas',

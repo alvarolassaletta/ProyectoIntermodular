@@ -22,6 +22,7 @@ class AppColors{
   static const Color activeTimeEntryIcon =  Color(0xFFFF9800);
   //static const Color completedTimeEntryIcon = Color(0xD607DD07);
   static const Color completedTimeEntryIcon = Color(0xFF6C7575);
+  static const Color  noEntriesIconColor = Color(0xFFE90303);
   
   //Divider 
   static const Color dividerColor = Color.fromARGB(181, 119, 119, 119);

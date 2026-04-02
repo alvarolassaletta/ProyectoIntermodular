@@ -139,11 +139,12 @@ class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
           if(timeEntries.isEmpty){
             return Center(
               child:Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Icon(Icons.error_outline, size: 64, color: Colors.redAccent),
+                  const Icon(Icons.error_outline, size: 64, color: AppColors.noEntriesIconColor),
                   const SizedBox(height: 16),
                   Text( 'No hay registros de fichajes todavía',
-                  style: Theme.of(context).textTheme.titleMedium,),
+                  style:  TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
                 ],
               )
             );
