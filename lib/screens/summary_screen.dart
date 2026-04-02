@@ -80,6 +80,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
       //print('start: $start'); 
       //print('end: $end');
 
+        //fichajes ordenados del mas reciente al mas antiguo dentro de un rango de fechas
       _futureTimeEntries = _timeEntryService.getTimeEntriesByDateRange(userId, start, end);
     }
   }
@@ -202,13 +203,20 @@ class _SummaryScreenState extends State<SummaryScreen> {
           }
           
 
-          final String startDateString = _dateFormat.format(_selectedDateRange!.start);
-          final String  endDateString = _dateFormat.format(_selectedDateRange!.end);
-          final completedEntry = timeEntries.where((entry) =>entry.clockOut != null).firstOrNull;
-          final String lastRealClockOut = completedEntry != null 
-          ? _dateFormat.format(completedEntry.clockOut!.toLocal())
+          final String  rangeStartString = _dateFormat.format(_selectedDateRange!.start);
+          final String  rangeEndString = _dateFormat.format(_selectedDateRange!.end);
+
+          //accede al fichaje de salida del fichaje mas reciente. Es el primero de la lista porque los fichajes en la lista están ordenados del más reciente al más antiguo. 
+          final String lastRealClockOut = timeEntries.first.clockOut != null 
+          ? _dateFormat.format(timeEntries.first.clockOut!.toLocal())
           : 'En Curso'; 
-          final String totalDuration = TimeUtils.calculateTotalDuration(timeEntries); 
+
+          // se pasa la lista  de fichajes y el inicio y fin de rango
+          final String totalDuration = TimeUtils.calculateTotalDuration(
+            timeEntries,
+            rangeStart: _selectedDateRange!.start.toUtc(),
+            rangeEnd: _selectedDateRange!.end.add(const Duration(days: 1)).toUtc(),
+          ); 
 
 
           return RefreshIndicator(
@@ -257,13 +265,13 @@ class _SummaryScreenState extends State<SummaryScreen> {
                             CustomSummaryRow(
                               icon: Icons.work, 
                               label: 'Inicio del rango: ', 
-                              value: startDateString,
+                              value: rangeStartString,
                             ),
                             const SizedBox(height: 16),
                             CustomSummaryRow(
                               icon: Icons.work, 
                               label: 'Fin del rango: ', 
-                              value: endDateString
+                              value: rangeEndString,
                             ),
                             const SizedBox(height: 16),
                             CustomSummaryRow(
