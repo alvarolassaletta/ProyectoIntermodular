@@ -84,8 +84,11 @@ class TimeEntryService{
 
 
   /// SELECT TIME-ENTRIES DENTRO DE UN RANGO 
-  /// Obtiene los fichajes dentro de un rango de fechas  ordenados del mas reciente al  más antiguo
+  /// Obtiene los fichajes  de un usuario dentro de un rango de fechas  ordenados del mas reciente al  más antiguo
   /// El rango concreto se elige en summary_screen 
+  /// Un fichaje queda incluido  si el fichaje de entrada empieza antes del fin del rango y el fichaje de salida termina despues del inicio del rango o esta activo (clock_out es null)
+  /// toUtc()  asegura que el inicio y fin de rango esten en Utc y 'lleven' marcada la zona horaria
+  /// toIso8601String() asegura que inicio y fin de rango estén formato compatible con el tipo de dato DATETIME WITH TIMEZONE  ( Ejemplo: 2026-04-01T08:30:00+00:00)
   Future <List<TimeEntry>>  getTimeEntriesByDateRange(
     String userId, DateTime start, DateTime end
   )async {
@@ -93,9 +96,9 @@ class TimeEntryService{
       final data = await _supabase.from('time_entries')
         .select()
         .eq('user_id',userId)
-        .gte('clock_in',start.toIso8601String())
-        .lte('clock_in',end.toIso8601String())
-        .order('created_at',ascending:false); 
+        .lte('clock_in', end.toUtc().toIso8601String())
+        .or('clock_out.gte.${start.toUtc().toIso8601String()}, clock_out.is.null')
+        .order('created_at',ascending:false);
       return data.map((timeEntryMap)=> TimeEntry.fromMap(timeEntryMap) ).toList(); 
 
     }on PostgrestException catch(e){
