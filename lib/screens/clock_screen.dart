@@ -65,7 +65,7 @@ class _ClockScreenState extends State<ClockScreen> {
       }
     }catch(error){
       if (mounted){
-        SnackBarMessenger.showError('Error al cargar el fichaje activo:  $error');
+        SnackBarMessenger.showError('Error al cargar el fichaje activo.');
       }
     } finally{
       if(mounted){
@@ -118,7 +118,7 @@ class _ClockScreenState extends State<ClockScreen> {
       }
   
     } catch(error){
-      SnackBarMessenger.showError("Error al realizar Fichaje: $error");
+      SnackBarMessenger.showError("Error al realizar fichaje. Inténtalo de nuevo");
     }finally{
       if(mounted){
         setState(()=> _isProcessing= false);

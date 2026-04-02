@@ -5,8 +5,10 @@ import 'package:proyecto_intermodular/components/gradient_background.dart';
 import 'package:proyecto_intermodular/core/app_colors.dart';
 import 'package:proyecto_intermodular/core/app_theme.dart';
 import 'package:proyecto_intermodular/services/auth_service.dart';
+import 'package:proyecto_intermodular/utils/auth_error_translator.dart';
 import 'package:proyecto_intermodular/utils/input_validation.dart';
 import 'package:proyecto_intermodular/utils/snack_bar_messenger.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 // Los enum se declaran fuera de las clases 
 // Este enum se utiliza para controlar en que paso del proceso de recuperación de contraseña se encuentra el usuario, y mostrar los campos e instrucciones correspondientes en cada paso
@@ -74,7 +76,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       });
 
     }catch(e){
-      SnackBarMessenger.showError('Error al enviar el código de recuperación: $e');
+      SnackBarMessenger.showError('Error al enviar el código de recuperación. Comprueba el correo introducido.');
 
     }finally{
        setState((){
@@ -111,7 +113,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         SnackBarMessenger.showError('Código de recuperación inválido. Por favor, inténtalo de nuevo.');
       }
     }catch(e){
-      SnackBarMessenger.showError('Error al verificar el código de recuperación: $e');
+      SnackBarMessenger.showError('Error al verificar el código de recuperación.');
     }finally{
        setState((){
       _isLoading =  false; 
@@ -139,7 +141,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         context.pop('/login');
       } 
     }catch(e){
-      SnackBarMessenger.showError('Error al actualizar la contraseña: $e');
+      if(e is AuthException){
+        SnackBarMessenger.showError(AuthErrorTranslator.translate(e));
+      }else{
+        SnackBarMessenger.showError('Error al actualizar la contraseña. Por favor, inténtalo de nuevo.');
+      }
+     
     }finally{
        setState((){
       _isLoading =  false; 

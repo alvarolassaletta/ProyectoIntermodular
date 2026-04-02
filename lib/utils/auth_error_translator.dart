@@ -4,36 +4,52 @@ class AuthErrorTranslator {
 
   ///Método para recibir los errores de autentifcacion  de Supabase  y  traducirlos a fin de mostrar mensajes mas accesibles  y adaptados 
   ///Recibe la exception  para  poder acceder a las distitnas propiedades  si se desea: error.message, error.statusCode
+  /// Documentacion de los codes: https://supabase.com/docs/guides/auth/debugging/error-codes
 static String translate(AuthException error) {
     // Pasamos el mensaje original a minúsculas para evitar fallos si Supabase 
     // cambia las mayúsculas en el futuro.
+    final code = error.code ?? ''; 
     final message = error.message.toLowerCase();
 
-    return switch (message) {
-      // 1. CASO LOGIN: El usuario intenta entrar pero no ha verificado el enlace de su correo.
-      _ when message.contains('email not confirmed') => 
-          'Debes confirmar tu email antes de iniciar sesión. Revisa tu correo.',
-          
-      // 2. CASO LOGIN: El correo no existe o la contraseña está mal escrita.
-      _ when message.contains('invalid login') => 
-          'El email o la contraseña son incorrectos.',
-          
-      // 3. CASO REGISTRO: El usuario intenta crear una cuenta con un correo que ya tenemos en la base de datos.
-      _ when message.contains('user already registered') => 
-          'Ya existe una cuenta registrada con este correo.',
-          
-      // 4. CASO REGISTRO: La contraseña no cumple los requisitos mínimos de seguridad de Supabase (ej. mínimo 6 caracteres).
-      _ when message.contains('weak_password') => 
-          'La contraseña es demasiado débil. Usa al menos 6 caracteres.',
-          
-      // 5. CASO CIERRE DE SESIÓN / NAVEGACIÓN: El token JWT ha caducado o la sesión ya se destruyó en el servidor.
-      _ when message.contains('session_not_found') => 
-          'Tu sesión ha expirado. Por favor, vuelve a iniciar sesión.',
-      
-      // 6. CASO POR DEFECTO: Errores imprevistos de red, caídas de servidor, o mensajes nuevos de Supabase.
-      // Mostramos el error original para que el usuario pueda hacer captura de pantalla y reportarlo.
-      _ => 'Error de autenticación: ${error.message}',
+    return switch (code) {
+      // LOGIN
+    'invalid_credentials'     => 'El email o la contraseña son incorrectos.',
+    'email_not_confirmed'     => 'Debes confirmar tu email antes de iniciar sesión. Revisa tu correo.',
+    'user_banned'             => 'Esta cuenta ha sido desactivada.',
+
+    // REGISTRO
+    'email_exists'            => 'Ya existe una cuenta registrada con este correo.',
+    'weak_password'           => 'La contraseña es demasiado débil. Usa al menos 8 caracteres.',
+    'signup_disabled'         => 'El registro de nuevos usuarios no está disponible en este momento.',
+
+    // CAMBIO DE CONTRASEÑA
+    'same_password'           => 'La nueva contraseña debe ser diferente a la actual.',
+
+    // SESIÓN
+    'session_expired'         => 'Tu sesión ha expirado. Por favor, vuelve a iniciar sesión.',
+    'session_not_found'       => 'Tu sesión ha expirado. Por favor, vuelve a iniciar sesión.',
+
+    // OTP
+    'otp_expired'             => 'El código de verificación ha caducado. Solicita uno nuevo.',
+
+    // RATE LIMIT
+    'over_request_rate_limit' => 'Demasiados intentos. Espera unos minutos antes de volver a intentarlo.',
+    'over_email_send_rate_limit' => 'Demasiados emails enviados. Espera unos minutos.',
+
+    // SERVIDOR
+    'unexpected_failure'      => 'Ha ocurrido un error inesperado. Inténtalo más tarde.',
+    'request_timeout'         => 'La solicitud tardó demasiado. Comprueba tu conexión e inténtalo de nuevo.',
+
+    // FALLBACK por mensaje (para errores sin code)
+    _ when message.contains('email not confirmed') =>
+        'Debes confirmar tu email antes de iniciar sesión. Revisa tu correo.',
+
+    // DEFAULT
+    _ => 'Error de autenticación: ${error.message}',
+
+
+    
     };
-}
+  }
 }
 

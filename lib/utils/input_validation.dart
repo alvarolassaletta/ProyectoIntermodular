@@ -126,7 +126,7 @@ class InputValidation{
   /// Exige exactamente 8 dígitos numéricos.
   ///
   /// Desglose:
-  /// * `^\d{6}$` : Solo dígitos (`\d`), exactamente 8.
+  /// * `^\d{8}$` : Solo dígitos (`\d`), exactamente 8.
   ///
   /// Devuelve null si el código es válido, o un mensaje de error si no.
   static String? validateOtpCode(String? value) {
@@ -137,7 +137,7 @@ class InputValidation{
     final RegExp otpRegExp = RegExp(r'^\d{8}$');
 
     if (!otpRegExp.hasMatch(value)) {
-      return 'El código debe tener exactamente 6 dígitos';
+      return 'El código debe tener exactamente 8 dígitos';
     }
 
     return null;

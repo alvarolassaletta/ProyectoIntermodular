@@ -97,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     }catch (error){
       if(mounted){
-        SnackBarMessenger.showError('Error inesperado al cerra sesión: $error');
+        SnackBarMessenger.showError('Error inesperado al cerrar sesión. Inténtalo de nuevo');
       }
     }
   }

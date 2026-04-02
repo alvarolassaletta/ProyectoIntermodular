@@ -74,7 +74,7 @@ Future<void> _loadProfile ()async{
       }
 
   } catch(e){
-    SnackBarMessenger.showError(" Error al cargar el perfil: $e");
+    SnackBarMessenger.showError(" Error al cargar el perfil.");
   } finally{
     if(mounted){
       setState(() {
@@ -108,7 +108,7 @@ Future <void> _saveProfile() async{
       }
 
   }catch(e){
-    SnackBarMessenger.showError("Error al actualizar el perfil: ${e.toString()}"); 
+    SnackBarMessenger.showError("Error al actualizar el perfil."); 
   
   }finally{
     if(mounted){

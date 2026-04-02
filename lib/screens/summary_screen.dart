@@ -66,7 +66,6 @@ class _SummaryScreenState extends State<SummaryScreen> {
     final userId  = _authServive.currentUser?.id;
     //print('userId: $userId'); 
    
-
     if (userId ==null){
       _futureTimeEntries= Future.value([]);
       return; 

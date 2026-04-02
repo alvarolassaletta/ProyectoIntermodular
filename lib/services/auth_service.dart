@@ -29,7 +29,7 @@ class AuthService{
         ///relanza la misma excepcion  que fue capturada sin crear una nueva
         rethrow; 
       } catch(e){
-        throw Exception('Error inesperado al registrarse $e}');
+        throw Exception('Error inesperado al registrarse.');
       }
   }
   
@@ -43,7 +43,7 @@ class AuthService{
         //rethow necesario para que se devuelva la AuthExcepcion
         rethrow; 
     } catch(e){
-      throw Exception('Error inesperado al iniciar sesion: $e');
+      throw Exception('Error inesperado al iniciar sesion. Inténtelo de nuevo');
     } 
   }
 
@@ -57,7 +57,7 @@ class AuthService{
       //rethow necesario para que se devuelva la AuthExcepcion
       rethrow;
     } catch(e){
-      throw Exception('Error inesperado al cerrar sesión: $e');
+      throw Exception('Error inesperado al cerrar sesión.   Inténtelo de nuevo');
     }
   }
 
@@ -95,7 +95,6 @@ class AuthService{
       return response.session !=null;
 
     }catch(e){
-      
       return false; 
     }
   }

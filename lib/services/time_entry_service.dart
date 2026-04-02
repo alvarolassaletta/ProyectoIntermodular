@@ -23,7 +23,7 @@ class TimeEntryService{
     } on PostgrestException catch(e){
       throw Exception('Error DB: ${e.message} , codigo: ${e.code}');
     }catch(e){
-      throw Exception('Error $e'); 
+      throw Exception('Error  inesperado al  registrar la entrada.'); 
     }
   }
 
@@ -40,7 +40,7 @@ class TimeEntryService{
     } on PostgrestException catch(e){
       throw Exception('Error DB: ${e.message} , codigo: ${e.code}');
     }catch(e){
-      throw Exception('Error $e'); 
+      throw Exception('Error inesperado al registrar la salida.'); 
     }
   }
 
@@ -61,7 +61,7 @@ class TimeEntryService{
     } on PostgrestException catch(e){
       throw Exception('Error DB: ${e.message} , codigo: ${e.code}');
     }catch(e){
-      throw Exception('Error $e'); 
+      throw Exception('Error  inesperado al comprobar el fichaje activo.'); 
     }
   }
 
@@ -78,7 +78,7 @@ class TimeEntryService{
     }on PostgrestException catch(e){
       throw Exception('Error DB: ${e.message} , codigo: ${e.code}');
     }catch(e){
-      throw Exception('Error $e'); 
+      throw Exception('Error inesperado al obtener los fichajes'); 
     }
   }
 
@@ -105,7 +105,7 @@ class TimeEntryService{
       throw Exception('Error DB al filtrar: ${e.message} , codigo: ${e.code}');
      
     }catch(e){
-      throw Exception('Error al filtrar $e'); 
+      throw Exception('Error al filtrar  los fichajes.'); 
     }
   }
 
@@ -128,7 +128,7 @@ class TimeEntryService{
     } on PostgrestException catch(e){
        throw Exception('Error DB: ${e.message} , codigo: ${e.code}');
     }catch(e){
-      throw Exception('Error $e'); 
+      throw Exception('Error inesparado al obtener el último fichaje.'); 
     }
   }
   
