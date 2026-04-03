@@ -24,19 +24,22 @@ class _SplashScreenState extends State<SplashScreen> {
 
   ///Comprueba si existe una sesión abierta. 
   ///Si existe se navega HomeScreen. En caso contrario, redirige a LoginScreen
-  ///
+  ///Si durante la verificacion de la sesión ocurre un error,  se redirige a LoginScreen
   Future <void> _checkSession() async{
     //pausa para que initState termine y flutter puede ejecutar el metodo build
     await Future.delayed(const Duration(seconds: 2)); 
 
     //Si durante la pausa  la app se cierra , la función se detiene
     if(!mounted) return; 
+    try{
+      final user = _authService.currentUser;
 
-    final user = _authService.currentUser;
-
-    if(user != null){
-      context.go('/home');
-    } else{
+      if(user != null){
+        context.go('/home');
+      } else{
+        context.go('/login');
+      }
+    }catch(e){
       context.go('/login');
     }
   }

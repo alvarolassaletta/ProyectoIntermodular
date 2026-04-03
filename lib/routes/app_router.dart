@@ -40,7 +40,7 @@ final GoRouter appRouter = GoRouter(
         StatefulShellBranch(
           routes:[
             GoRoute(
-              path:'/home', // cuando haga la ClockScreen me tengo que acordar de  incluirla aqui
+              path:'/home',  
               builder: (context,state) => const ClockScreen(),
             )
           ]
