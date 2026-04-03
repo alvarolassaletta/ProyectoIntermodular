@@ -46,6 +46,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
       obscureText: widget.isPassword ?  _hidePassword : false,
       decoration: InputDecoration(
         labelText: widget.label,
+        errorMaxLines: 3,
+        errorStyle: TextStyle(fontSize:14),
         prefixIcon: Icon(widget.prefixIcon),
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(12)),
