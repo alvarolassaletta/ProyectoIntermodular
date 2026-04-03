@@ -64,14 +64,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
     }); 
 
     try{
-      await _authService.signUp(
+      final response = await _authService.signUp(
         email: _emailController.text.trim(), 
         password: _passwordController.text, 
         userName: _userNameController.text.trim(), 
         fullName: _fullNameController.text.trim(),
       );
+      //identitities es una lista de proveedores de autentificacion vinculadas al usuario.
+      //cuando hay un intento de registro, con un email  ya existente y en supabase esta activada la proteccion anti-enunemracion , suapbase devuelve  un objeto User 'falso' y con  la lsita identities vacia. 
+      if(response.user?.identities?.isEmpty ?? true){
+        SnackBarMessenger.showError('Ya existe una cuenta registrada con este email');
+        return; 
+      }
 
-       /// comprueba si la pantalal actual no se ha cerrado por el usuario
+       /// comprueba si la pantalla actual no se ha cerrado por el usuario
       if(mounted){
         SnackBarMessenger.showSucces('¡Registro completado! Por favor, revisa tu bandeja de entrada para confirmar tu email');
         context.pop();
