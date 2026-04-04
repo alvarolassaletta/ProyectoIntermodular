@@ -17,9 +17,10 @@ import 'package:proyecto_intermodular/utils/time_utils.dart';
 
 // Abre el menú nativo del sistema operativo para compartir archivos (por WhatsApp, Email, Bluetooth, etc.).
 import 'package:share_plus/share_plus.dart';
+//paquete para trabajar y formatear con fechas 
 import 'package:intl/intl.dart';
 
-// improt el modelo time_entries 
+// importa el modelo time_entries 
 import '../models/time_entries.dart';
 
 

@@ -100,77 +100,54 @@ class _LoginScreenState extends State<LoginScreen> {
   /// Si estaba marcada, recupera los valores y los inyecta en los controladores de los CustomTextFormField
   /// 
   Future <void> _loadSavedCredentials() async{
-    try{
-      ///lee  si el usuario  tenia marcado la opcion recordar email y contraseña 
-      ///hay que 'convertir' a bool porque FlutterSecureStorage guarda en formato String
-      final String? rememberCredentialString =  await _secureStorage.read(key: PreferencesKeys.rememberCredentials);
-      final bool rememberCredentialBool = rememberCredentialString == 'true'; 
+    ///lee  si el usuario  tenia marcado la opcion recordar email y contraseña 
+    ///hay que 'convertir' a bool porque FlutterSecureStorage guarda en formato String
+    final String? rememberCredentialString =  await _secureStorage.read(key: PreferencesKeys.rememberCredentials);
+    final bool rememberCredentialBool = rememberCredentialString == 'true'; 
 
-      if(rememberCredentialBool){
-        final String email = await _secureStorage.read(key:PreferencesKeys.savedEmail) ?? ''; 
-        final String password = await _secureStorage.read(key:PreferencesKeys.savedPassword) ?? '';
+    if(rememberCredentialBool){
+      final String email = await _secureStorage.read(key:PreferencesKeys.savedEmail) ?? ''; 
+      final String password = await _secureStorage.read(key:PreferencesKeys.savedPassword) ?? '';
 
-        if(mounted){
-          setState((){
-            _rememberCredentials = true; 
-            _emailController.text= email;
-            _passwordController.text= password; 
-          });
-        }
+      if(mounted){
+        setState((){
+          _rememberCredentials = true; 
+          _emailController.text= email;
+          _passwordController.text= password; 
+        });
       }
-    } catch(e){
-      // si ocurre una excepcion al cargar las credenciales,  elimina los restos que  pudiera haber. 
-      debugPrint('Error al cargar credenciales');
-      await _secureStorage.delete(
-          key:PreferencesKeys.rememberCredentials
-        );
-      await _secureStorage.delete(
-          key:PreferencesKeys.savedEmail
-        );
-      await _secureStorage.delete(
-          key:PreferencesKeys.savedPassword
-      );
     }
+    
+
   }
 
   /// Si usuario marca el CheckBoxListTile para recordar email y contraseña se guardan usando el metodo write  de flutter_secure_storage 
   /// Si desmarca, se eliminan 
   Future <void> _saveCredentials() async{
     // hay que guardar la eleccion del usuario sobre recordar email y contraseña 
-    try{
-        await _secureStorage.write(
-        key: PreferencesKeys.rememberCredentials,
-        value: _rememberCredentials.toString()
-      ); 
-      // Si no esta marcada, no se guarda email y contraseña 
-      if(_rememberCredentials){
-        await _secureStorage.write(
-          key: PreferencesKeys.savedEmail,
-          value: _emailController.text.trim()
-        );
-        await _secureStorage.write(
-          key:PreferencesKeys.savedPassword,
-          value: _passwordController.text
-        );
-      } else{
-        await _secureStorage.delete(
-          key:PreferencesKeys.savedEmail
-        );
-        await _secureStorage.delete(
-          key:PreferencesKeys.savedPassword
-        );
-      }
-    } catch(e){
-      if(mounted){
-        SnackBarMessenger.showError('No se pudieron guardar las credenciales');
-      }
+    await _secureStorage.write(
+      key: PreferencesKeys.rememberCredentials,
+      value: _rememberCredentials.toString()
+    ); 
+    // Si no esta marcada, no se guarda email y contraseña 
+    if(_rememberCredentials){
+      await _secureStorage.write(
+        key: PreferencesKeys.savedEmail,
+        value: _emailController.text.trim()
+      );
+      await _secureStorage.write(
+        key:PreferencesKeys.savedPassword,
+        value: _passwordController.text
+      );
+    } else{
+      await _secureStorage.delete(
+        key:PreferencesKeys.savedEmail
+      );
+      await _secureStorage.delete(
+        key:PreferencesKeys.savedPassword
+      );
     }
   }
-
-
-
-  
-
 
   @override
   Widget build(BuildContext context) {

@@ -9,6 +9,7 @@ CREATE TABLE public.profiles (
         full_name TEXT, 
         created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
         is_admin BOOLEAN DEFAULT false,
+        email TEXT NOT NULL
 
         PRIMARY KEY(id),
         CONSTRAINT  user_name_length CHECK(char_length(user_name) >=8)

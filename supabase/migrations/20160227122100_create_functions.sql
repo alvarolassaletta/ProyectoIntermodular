@@ -20,11 +20,13 @@ $$ LANGUAGE  plpgsql  SECURITY DEFINER;
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS  trigger AS  $$
 BEGIN 
-        INSERT INTO  public.profiles (id, full_name, user_name)
+        INSERT INTO  public.profiles (id, full_name, user_name,email)
         VALUES (
                 new.id, 
                 new.raw_user_meta_data ->> 'full_name', 
-                new.raw_user_meta_data ->> 'user_name');
+                new.raw_user_meta_data ->> 'user_name',
+                new.raw_user_meta_data->>'email'
+        );
         RETURN new;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER; 

@@ -4,6 +4,7 @@ class Profile{
   final String? fullName; 
   final DateTime createdAt;
   final bool isAdmin; 
+  final String email; 
 
   Profile({
     required this.id,
@@ -11,6 +12,7 @@ class Profile{
     this.fullName,
     required this.createdAt,
     required this.isAdmin,
+    required this.email,
   });
 
 
@@ -23,6 +25,7 @@ class Profile{
       fullName: json['full_name'] as String?,
       createdAt: DateTime.parse(json['created_at'] as String),
       isAdmin: json['is_admin'] as bool? ?? false, 
+      email:json['email'] ?? '',
     );
   }
   
