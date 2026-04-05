@@ -25,7 +25,7 @@ BEGIN
                 new.id, 
                 new.raw_user_meta_data ->> 'full_name', 
                 new.raw_user_meta_data ->> 'user_name',
-                new.raw_user_meta_data->>'email'
+                new.email
         );
         RETURN new;
 END;
