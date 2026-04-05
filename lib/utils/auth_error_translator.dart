@@ -43,9 +43,11 @@ static String translate(AuthException error) {
     // FALLBACK por mensaje (para errores sin code)
     _ when message.contains('email not confirmed') =>
         'Debes confirmar tu email antes de iniciar sesión. Revisa tu correo.',
+     _ when message.contains('database error') =>
+        'Ha ocurrido un error inesperado. Inténtalo más tarde.',
 
     // DEFAULT
-    _ => 'Error de autenticación: ${error.message}',
+    _ => 'Error de autenticación. Inténtalo de nuevo}',
 
 
     

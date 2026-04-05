@@ -83,6 +83,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         context.pop();
       }
     } on AuthException catch(error){
+      debugPrint('AuthException — code: ${error.code} | message: ${error.message}');
       final   translatedErrorMessage = AuthErrorTranslator.translate(error);
       SnackBarMessenger.showError(translatedErrorMessage);
     }catch(error){

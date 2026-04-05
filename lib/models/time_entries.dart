@@ -24,7 +24,6 @@ class TimeEntry{
     ); 
   }
 
-  /* vas a necetiar en el algun momento actualizar el registro ??  necesitaas algo simiarl a un toMap como en profiles */ 
 
 
  

@@ -80,7 +80,7 @@ class InputValidation{
   /// Desglose:
   /// * `^` y `$` : Inicio y fin exactos.
   /// * `[a-zA-Z0-9_]` : Permite mayúsculas, minúsculas, números y guion bajo.
-  /// * `{3,25}` : Exige que tenga entre 3 y 25 caracteres de longitud.
+  /// * `{3,25}` : Exige que tenga entre 8 y 25 caracteres de longitud.
   /// Devuelve null si el nombre de usuario se ajusta a las reglas. Si no, devuelve un mensaje
   
   static String?  validateUserName(String? value){
@@ -88,10 +88,10 @@ class InputValidation{
     if(value==null || value.isEmpty){
       return 'Introduce tu nombre de usuario';
     }
-    final RegExp  userNameRegExp = RegExp(r'^[a-zA-Z0-9_]{3,25}$');
+    final RegExp  userNameRegExp = RegExp(r'^[a-zA-Z0-9_]{8,25}$');
     
     if(! userNameRegExp.hasMatch(value)){
-      return 'El nombre de usuario debe tener entre 3 y 25 caracteres  y  solo se permite letras,numeros o _'; 
+      return 'El nombre de usuario debe tener entre 8 y 25 caracteres  y  solo se permite letras,numeros o _'; 
     }
     
     return null;
