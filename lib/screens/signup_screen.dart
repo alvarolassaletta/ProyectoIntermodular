@@ -71,7 +71,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         fullName: _fullNameController.text.trim(),
       );
       //identitities es una lista de proveedores de autentificacion vinculadas al usuario.
-      //cuando hay un intento de registro, con un email  ya existente y en supabase esta activada la proteccion anti-enunemracion , suapbase devuelve  un objeto User 'falso' y con  la lsita identities vacia. 
+      //cuando hay un intento de registro, con un email  ya existente y en supabase esta activada la proteccion anti-enunemracion , suapbase devuelve  un objeto User 'falso' y con  la lista identities vacia. 
       if(response.user?.identities?.isEmpty ?? true){
         SnackBarMessenger.showError('Ya existe una cuenta registrada con este email');
         return; 

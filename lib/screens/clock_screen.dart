@@ -103,6 +103,7 @@ class _ClockScreenState extends State<ClockScreen> {
         }
       } else{
         //fichaje de salida
+        // hay un fichaje activo, asique se puede acceder al id del fichaje 
         await _timeEntryService.clockOut(activeTimeEntry!.id);
         //recupera este último fichaje que ya esta completo 
         final  lastEntry = await _timeEntryService.getLastCompletedTimeEntry(userId);

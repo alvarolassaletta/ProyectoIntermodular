@@ -107,7 +107,8 @@ class ExportHelper {
       );
       
     }catch(e){
-      SnackBarMessenger.showError('Error al exportar a CSV: $e');
+      debugPrint('Error al exportar a CSV: $e');
+      SnackBarMessenger.showError('Error al exportar a CSV.');
     }
   }
 
@@ -190,7 +191,8 @@ class ExportHelper {
       );
 
     }catch(e){
-      SnackBarMessenger.showError("Error al exportar a PDF: $e");
+      debugPrint('Error al exportar a PDF: $e');
+      SnackBarMessenger.showError("Error al exportar a PDF");
     }
   }
 }
