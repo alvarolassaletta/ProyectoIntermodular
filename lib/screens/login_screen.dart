@@ -198,10 +198,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           prefixIcon: Icons.lock_clock_outlined,
                             /// si se superan las validaciones, se devuelve null. Si no se devuelve un mensaje 
                           validator: (value){
-                              if(value==null || value.isEmpty){
+                            if(value==null || value.isEmpty){
                               return 'Introduce  tu contraseña';
                             }
-                            return null; 
+                            return InputValidation.validatePassword(value);
                           },
                           onFieldSubmitted: (_) =>_signIn(),
                         ),

@@ -20,7 +20,7 @@ class InputValidation{
   /// * `^` : Indica el inicio exacto de la cadena (no se permite nada antes).
   /// * `[\w-\.]+` : Valida el nombre de usuario (letras, números, `_`, `-` y `.`).
   /// * `@` : Exige que exista el símbolo de arroba.
-  /// * `([\w-]+\.)+` : Valida el dominio (letras, números o guiones seguidos de un punto).
+  /// * `([\w-]{2,}\.)+` : Valida el dominio (letras, números o guiones seguidos de un punto, mínimo 2 caracteres, sin límite máximo).
   /// * `[\w-]{2,10}` : Valida la extensión (entre 2 y 10 caracteres).
   /// * `$` : Indica el final exacto de la cadena (no se permite nada después).
   ///
@@ -31,7 +31,7 @@ class InputValidation{
         return 'Introduce tu email';
     }
 
-    final RegExp  emailRegExp= RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,10}$');
+    final RegExp  emailRegExp= RegExp(r'^[\w-\.]+@([\w-]{2,}\.)+[\w-]{2,10}$');
 
     if(!emailRegExp.hasMatch(value)){
       return 'Introduce un email válido ( ej: micorreo@correo.com)';
@@ -66,7 +66,7 @@ class InputValidation{
     final RegExp  passwordRegExp = RegExp(r'^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&#\-_+.=^~()<>/\\|,:;\[\]{}])[A-Za-z\d@$!%*?&#\-_+.=^~()<>/\\|,:;\[\]{}]{8,}$');
 
     if(!passwordRegExp.hasMatch(value)){
-      return 'La contraseña debe tener al menos 8 caracteres, contener letra, al menos un número y un caracter especial)';
+      return 'La contraseña debe tener al menos 8 caracteres, contener letra, al menos un número y un caracter especial';
     }
     return null; 
   }
@@ -100,19 +100,31 @@ class InputValidation{
   /// Valida que el nombre completo sea real.
   ///
   /// Solo permite letras (incluyendo acentos y la letra ñ/Ñ) y espacios.
-  /// Exige una longitud entre 2 y 50 caracteres.
-  ///
+  /// Al menos dos palabras (nombre y apellido).
+  ///  Cada palabra con al menos 2 letras.
+  /// Longitud total máxima de 50 caracteres.
+  ///  Sin espacios al inicio ni al final.
+  ///  Sin dobles espacios.
+  /// 
   /// Desglose:
-  /// * `[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]` : Letras, vocales acentuadas, eñes y espacios (`\s`).
+  /// * ^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{2,}(\s[a-zA-ZáéíóúÁÉÍÓÚñÑ]{2,})+$: Letras, vocales acentuadas, eñes y espacios (`\s`).
+  /// * `^` y `$` : Inicio y fin exactos de la cadena.
+  /// * `[a-zA-ZáéíóúÁÉÍÓÚñÑ]{2,}` : Primera palabra, mínimo 2 letras.
+  /// * `(\s[a-zA-ZáéíóúÁÉÍÓÚñÑ]{2,})+` : Un espacio seguido de otra palabra de mínimo 2 letras. El `+` exige que haya al menos una.
+  
   /// Devuelve null si el nombre completo se ajsuta a las reglas. Si no, devuelve un mensaje
   
   static String? validateFullName (String? value){
 
     if(value==null || value.isEmpty){
-      return 'Introduce tu nombre  completo';
+      return 'Introduce tu nombre completo';
     }
 
-      final RegExp  fullNameRegExp  = RegExp(r'^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,50}$');
+    if (value.length > 50) {
+      return 'El nombre no puede superar los 50 caracteres';
+    }
+
+    final RegExp  fullNameRegExp  = RegExp(r'^[a-zA-ZáéíóúÁÉÍÓÚñÑ]{2,}(\s[a-zA-ZáéíóúÁÉÍÓÚñÑ]{2,})+$');
 
     if(!fullNameRegExp.hasMatch(value)){
        return 'Introduce un nombre válido'; 
