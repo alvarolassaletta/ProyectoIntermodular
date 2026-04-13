@@ -155,7 +155,7 @@ class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
           return Column(
             children: [
               Padding(
-                padding: const EdgeInsets.only(left:40,right: 40,top:36,bottom:16),
+                padding: const EdgeInsets.only(left:30,right: 30,top:36,bottom:16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children:[
@@ -163,6 +163,7 @@ class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
                     // BARA DE BÚSQUEDA. PERMITE BUSCAR FICHAJES POR FECHA (dd/MM)
                     //-----------------------------------------------------
                     Expanded(
+                      flex:3,
                       child: Container(
                         height:48,
                         decoration: BoxDecoration(
@@ -187,7 +188,7 @@ class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
                             }); 
                           },
                           decoration: InputDecoration(
-                            hintText: 'Buscar...(ej:  23/03)',
+                            hintText: 'Buscar..(ej: 23/03)',
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(12),
                                 borderSide: BorderSide.none,
@@ -220,24 +221,29 @@ class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
                     //-----------------------------------------------------
                     // FILLED BUTTON PARA DESCARGAR HISTORIAL DE FICHAJES
                     //-----------------------------------------------------
-                    SizedBox(
-                      height:48,
-                      child: FilledButton.icon(
-                        onPressed: () async {
-                            // Obtenemos la lista actual de fichajes
-                            final entries = await _futureTimeEntries; 
-                            final  filteredEntries= _filterEntries(entries);
-                            // Pasamos el context (para abrir el pop-up) y la lista al ExportHelper
-                            if (context.mounted) {
-                              ExportHelper.showExportDialog(context, filteredEntries);
-                            }
-                          },
-                        label: Text('Descargar Historial'),
-                        icon:  Icon(
-                          Icons.download_rounded,
-                          color: AppColors.primaryIconsColor,
-                          ),    
-                          //elimino la propiedad style porque ya estan aplicando estilos en el theme global      
+                    Expanded(
+                      flex:2,
+                      child: SizedBox(
+                        height:48,
+                        child: FilledButton.icon(
+                          onPressed: () async {
+                              // Obtenemos la lista actual de fichajes
+                              final entries = await _futureTimeEntries; 
+                              final  filteredEntries= _filterEntries(entries);
+                              // Pasamos el context (para abrir el pop-up) y la lista al ExportHelper
+                              if (context.mounted) {
+                                ExportHelper.showExportDialog(context, filteredEntries);
+                              }
+                            },
+                          label: Text('Descargar '),
+                          icon:  Icon(
+                            Icons.download_rounded,
+                            color: AppColors.primaryIconsColor,
+                            ),    
+                          style: FilledButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(horizontal: 12)
+                          )    
+                        ),
                       ),
                     ),
                   ]
@@ -255,7 +261,7 @@ class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
                       final filteredEntries = _filterEntries(timeEntries);
 
                       return ListView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 40,vertical:24),
+                        padding: const EdgeInsets.symmetric(horizontal: 30,vertical:24),
                         physics: const AlwaysScrollableScrollPhysics(),
                         itemCount: filteredEntries.length,
                         itemBuilder: (context,index){
@@ -298,9 +304,9 @@ class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Row(children:[
-                                    Text('Entrada: $timeClockInFormatted '),
+                                    Flexible(child: Text('Entrada: $timeClockInFormatted ')),
                                     SizedBox(width: 36),
-                                    Text('Salida: $timeClockOutFormatted'),
+                                    Flexible(child: Text('Salida: $timeClockOutFormatted')),
                                     ]
                                   ),
                                   SizedBox(height: 8),

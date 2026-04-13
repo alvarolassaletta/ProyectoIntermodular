@@ -133,7 +133,7 @@ Future <void> _saveProfile() async{
     return  Scaffold(
       backgroundColor: Colors.transparent,
       body: Padding(
-        padding: EdgeInsets.all(40),
+        padding: EdgeInsets.all(30),
         child: Center(
           child: ConstrainedBox(
             constraints:  BoxConstraints(

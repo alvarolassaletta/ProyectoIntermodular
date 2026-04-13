@@ -142,7 +142,7 @@ class _ClockScreenState extends State<ClockScreen> {
         child: _isLoading 
         ?  const CircularProgressIndicator.adaptive() 
         : Padding(
-          padding: const EdgeInsets.all(40.0),
+          padding: const EdgeInsets.all(30.0),
           child: ConstrainedBox(
             constraints: BoxConstraints(
               maxWidth: 400

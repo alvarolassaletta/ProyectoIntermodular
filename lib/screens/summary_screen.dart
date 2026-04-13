@@ -220,7 +220,7 @@ class _SummaryScreenState extends State<SummaryScreen> {
           return RefreshIndicator(
             onRefresh: _refresh,
             child: Padding(
-              padding: const EdgeInsets.all(40.0),
+              padding: const EdgeInsets.all(30.0),
               child: Center(
 
                 child: ConstrainedBox(
