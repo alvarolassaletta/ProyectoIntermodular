@@ -1,4 +1,4 @@
-import '../supabase_config.dart';
+import '../db/supabase_config.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../models/time_entries.dart';
 

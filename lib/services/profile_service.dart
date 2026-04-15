@@ -1,5 +1,5 @@
 import '../models/profiles.dart'; 
-import '../supabase_config.dart';
+import '../db/supabase_config.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 

@@ -1,4 +1,4 @@
-import 'package:proyecto_intermodular/supabase_config.dart';
+import 'package:proyecto_intermodular/db/supabase_config.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthService{
@@ -66,10 +66,7 @@ class AuthService{
   User? get currentUser =>  _supabase.auth.currentUser;
 
   
-  //https://supabase.com/docs/reference/dart/auth-onauthstatechange
-  //Getter para el stream de eventos authState cada vez que cambia el estado  de auth
-  // inicio de sesion, cierre de sesión, etc
-  Stream <AuthState>  get authStateChanges => _supabase.auth.onAuthStateChange;
+
 
   /// Solicita a supabase que mande el correo electronico de recuperacion con un codigo  de 6 digitos.
   Future<void> sendEmailOTPCode (String email) async{

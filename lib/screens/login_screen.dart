@@ -21,8 +21,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 
-/// FALTA LA PERSINTENCIA DE DATOS ->  CONTRAÑASEÑA SESION 
-
 
 class _LoginScreenState extends State<LoginScreen> {
 
