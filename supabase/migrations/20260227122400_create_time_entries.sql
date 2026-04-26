@@ -57,3 +57,11 @@ USING ( (select auth.uid()) = user_id AND clock_out IS NULL )
 WITH CHECK ( (select auth.uid()) = user_id );
 
 
+-- Acelera todas las consultas filtradas por usuario
+CREATE INDEX idx_time_entries_user_id ON time_entries(user_id);
+
+-- Incide para  getActiveTimeEntry (busca clock_out IS NULL de un usuario)
+CREATE INDEX idx_time_entries_user_clock_out ON time_entries(user_id, clock_out);
+
+-- Indice par getTimeEntriesByDateRange (filtra por usuario y rango de fechas)
+CREATE INDEX idx_time_entries_user_clock_in ON time_entries(user_id, clock_in);

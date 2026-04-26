@@ -64,3 +64,6 @@ WITH CHECK ( (SELECT auth.uid()) = id );
 CREATE TRIGGER  on_auth_user_created
   AFTER INSERT ON auth.users
   FOR EACH  ROW EXECUTE PROCEDURE  public.handle_new_user();
+
+-- Acelera busquedas por email y  evita  duplicidad de perfiles con el mismo email
+CREATE UNIQUE INDEX idx_profiles_email ON profiles(email);
