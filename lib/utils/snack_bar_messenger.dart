@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto_intermodular/services/auth_service.dart';
 
-/// Creo esta clase para  no tener mÉtodos  en cada clase para mostrar un SnackBar si el login o el signUp falla 
+/// Creo esta clase para  no tener métodos  en cada clase para mostrar un SnackBar si el login o el signUp falla 
 /// Se necesita una GLobal Key  de MaterialApp  scaffoldMessengerKey  que actua como puente para acceder al context raiz 
 /// Permite acceder al tamaño de la pantalla  y  pintar los SnackBar en cada pantalla 
 /// a MaterialApp router se le pasa una propiedad scaffoldMessangerKey con esta GlobalKey
