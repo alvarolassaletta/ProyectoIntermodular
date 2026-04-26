@@ -152,181 +152,190 @@ class _TimeEntryRecordScreenState extends State<TimeEntryRecordScreen> {
           //-----------------------------------------------------
           //  PANTALLA HISTORIAL DE FICHAJES 
           //-----------------------------------------------------
-          return Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left:30,right: 30,top:36,bottom:16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children:[
-                    //-----------------------------------------------------
-                    // BARA DE BÚSQUEDA. PERMITE BUSCAR FICHAJES POR FECHA (dd/MM)
-                    //-----------------------------------------------------
-                    Expanded(
-                      flex:3,
-                      child: Container(
-                        height:48,
-                        decoration: BoxDecoration(
-                          color: Colors.white, 
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Colors.black26, // Opacidad suave, como la sombra por defecto de Flutter
-                              blurRadius: 6,         // Lo difuminada que está la sombra
-                              offset: Offset(0, 2),  // Ligero desplazamiento hacia abajo
-                            ),
-                          ],
-                        ),
-
-                        child: TextField(
-                          controller: _searchController,
-                          keyboardType: TextInputType.datetime,
-                          //maxLength:10,
-                          onChanged: (value){
-                            setState((){
-                              _searchQuery= value; 
-                            }); 
-                          },
-                          decoration: InputDecoration(
-                            hintText: 'Buscar..(ej: 23/03)',
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                borderSide: BorderSide.none,
-                              ),
-                            filled:true,
-                            fillColor: AppColors.gradientBackgroundStart.withValues(),
-                            contentPadding: const EdgeInsets.symmetric(vertical:14),
-                            prefixIcon:  const Icon(Icons.search),
-                            suffixIcon: _searchQuery.isNotEmpty 
-                            //IconButton para limpiar la  barra de busqueda  si se ha escrito algo
-                            ? IconButton(
-                              icon: const Icon(Icons.clear),
-                              onPressed: () {
-                                _searchController.clear(); 
-                                setState(() {
-                                  _searchQuery= ""; 
-                                  
-                                });
-                                //oculta el teclado tras limpiar
-                                FocusScope.of(context).unfocus();
-                              },
-                            ) 
-                            : null
-                          )
-                        ),
-                      ),
-                    ),
-                    SizedBox(width: 10),
-
-                    //-----------------------------------------------------
-                    // FILLED BUTTON PARA DESCARGAR HISTORIAL DE FICHAJES
-                    //-----------------------------------------------------
-                    Expanded(
-                      flex:2,
-                      child: SizedBox(
-                        height:48,
-                        child: FilledButton.icon(
-                          onPressed: () async {
-                              // Obtenemos la lista actual de fichajes
-                              final entries = await _futureTimeEntries; 
-                              final  filteredEntries= _filterEntries(entries);
-                              // Pasamos el context (para abrir el pop-up) y la lista al ExportHelper
-                              if (context.mounted) {
-                                ExportHelper.showExportDialog(context, filteredEntries);
-                              }
-                            },
-                          label: Text('Descargar '),
-                          icon:  Icon(
-                            Icons.download_rounded,
-                            color: AppColors.primaryIconsColor,
-                            ),    
-                          style: FilledButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(horizontal: 12)
-                          )    
-                        ),
-                      ),
-                    ),
-                  ]
-                ),
+          return Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxWidth: 450,
               ),
-                //-----------------------------------------------------
-                // LISTA DE FICHAJES 
-                //-----------------------------------------------------
-              Expanded(
-                child: RefreshIndicator(
-                  onRefresh: _refresh,
-                
-                  child: Builder(
-                    builder: (context) {
-                      final filteredEntries = _filterEntries(timeEntries);
-
-                      return ListView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 30,vertical:24),
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        itemCount: filteredEntries.length,
-                        itemBuilder: (context,index){
-                                      
-                          final timeEntry =filteredEntries[index];
-                          //dia  entrada dd/MM/yyyy
-                          final clockIndayFormatted = _dateFormat.format(timeEntry.clockIn.toLocal());
-                          //dia salida 
-                          final clockOutDarFormatted = timeEntry.clockOut !=null ?  _dateFormat.format(timeEntry.clockOut!.toLocal()) : 'En curso';
-                          // hora entrada 
-                          final timeClockInFormatted = _timeFormat.format(timeEntry.clockIn.toLocal());
-                          //hora salida 
-                          final timeClockOutFormatted=  timeEntry.clockOut !=null ?  _timeFormat.format(timeEntry.clockOut!.toLocal()) : 'En curso'; 
-                          
-                          //ultima modicafión pra mostrar integridad 
-                          final createdAt = _createdAtFormat.format(timeEntry. 
-                          createdAt);
-                      
-                          //si no hay fichaje de salida, el fichaje esta en curso 
-                          bool isActive = timeEntry.clockOut ==null; 
-                                      
-                          String totalTime = TimeUtils.calculateDuration(timeEntry.clockIn.toLocal(), timeEntry.clockOut?.toLocal());
-                      
-                          return Card(
-                      
-                            margin: const EdgeInsets.symmetric(vertical: 6),
-                            elevation:4, // sombra para la Card
-                            shadowColor: Colors.black26,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                              //si el fichakje esta activo, que tengo un sobreado
-                              side: isActive ? BorderSide(color: Colors.lightGreen, width: 1.5) : BorderSide.none),
-                          
-                            child: ListTile(
-                              minVerticalPadding: 8,
-                              title: Text(
-                               'Día $clockIndayFormatted - $clockOutDarFormatted',
-                               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(children:[
-                                    Flexible(child: Text('Entrada: $timeClockInFormatted ')),
-                                    SizedBox(width: 36),
-                                    Flexible(child: Text('Salida: $timeClockOutFormatted')),
-                                    ]
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left:30,right: 30,top:36,bottom:16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children:[
+                        //-----------------------------------------------------
+                        // BARA DE BÚSQUEDA. PERMITE BUSCAR FICHAJES POR FECHA (dd/MM)
+                        //-----------------------------------------------------
+                        Expanded(
+                          flex:3,
+                          child: Container(
+                            height:48,
+                            decoration: BoxDecoration(
+                              color: Colors.white, 
+                              borderRadius: BorderRadius.circular(12),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black26, // Opacidad suave, como la sombra por defecto de Flutter
+                                  blurRadius: 6,         // Lo difuminada que está la sombra
+                                  offset: Offset(0, 2),  // Ligero desplazamiento hacia abajo
+                                ),
+                              ],
+                            ),
+              
+                            child: TextField(
+                              controller: _searchController,
+                              keyboardType: TextInputType.datetime,
+                              //maxLength:10,
+                              onChanged: (value){
+                                setState((){
+                                  _searchQuery= value; 
+                                }); 
+                              },
+                              decoration: InputDecoration(
+                                hintText: 'Buscar..(ej: 23/03)',
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide.none,
                                   ),
-                                  SizedBox(height: 8),
-                                  Text('Tiempo trabajado: $totalTime'),
-                                  SizedBox(height: 8),
-                                  Text('Fecha registro : $createdAt')
-                                ],
-                              ),
-                              leading: Icon(
-                                isActive ? Icons.access_time_filled : Icons.check_circle,
-                                color: isActive ? AppColors.activeTimeEntryColor: AppColors.completedTimeEntryIcon,
+                                filled:true,
+                                fillColor: AppColors.gradientBackgroundStart.withValues(),
+                                contentPadding: const EdgeInsets.symmetric(vertical:14),
+                                prefixIcon:  const Icon(Icons.search),
+                                suffixIcon: _searchQuery.isNotEmpty 
+                                //IconButton para limpiar la  barra de busqueda  si se ha escrito algo
+                                ? IconButton(
+                                  icon: const Icon(Icons.clear),
+                                  onPressed: () {
+                                    _searchController.clear(); 
+                                    setState(() {
+                                      _searchQuery= ""; 
+                                      
+                                    });
+                                    //oculta el teclado tras limpiar
+                                    FocusScope.of(context).unfocus();
+                                  },
+                                ) 
+                                : null
                               )
                             ),
-                          );
-                        });
-                    }
+                          ),
+                        ),
+                        SizedBox(width: 10),
+              
+                        //-----------------------------------------------------
+                        // FILLED BUTTON PARA COMPARTIR HISTORIAL DE FICHAJES
+                        //-----------------------------------------------------
+                        Expanded(
+                          flex:2,
+                          child: SizedBox(
+                            height:48,
+                            child: FilledButton.icon(
+                              onPressed: () async {
+                                  // Obtenemos la lista actual de fichajes
+                                  final entries = await _futureTimeEntries; 
+                                  final  filteredEntries= _filterEntries(entries);
+                                  // Pasamos el context (para abrir el pop-up) y la lista al ExportHelper
+                                  if (context.mounted) {
+                                    ExportHelper.showExportDialog(context, filteredEntries);
+                                  }
+                                },
+                              label: Text('Compartir'),
+                              icon:  Icon(
+                                Icons.download_rounded,
+                                color: AppColors.primaryIconsColor,
+                                ),    
+                              style: FilledButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(horizontal: 12)
+                              )    
+                            ),
+                          ),
+                        ),
+                      ]
+                    ),
                   ),
-                ),
+                    //-----------------------------------------------------
+                    // LISTA DE FICHAJES 
+                    //-----------------------------------------------------
+                  Expanded(
+                    child: RefreshIndicator(
+                      onRefresh: _refresh,
+                    
+                      child: Builder(
+                        builder: (context) {
+                          final filteredEntries = _filterEntries(timeEntries);
+              
+                          return ListView.builder(
+                            padding: const EdgeInsets.symmetric(horizontal: 30,vertical:24),
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            itemCount: filteredEntries.length,
+                            itemBuilder: (context,index){
+                                          
+                              final timeEntry =filteredEntries[index];
+                              //dia  entrada dd/MM/yyyy
+                              final clockIndayFormatted = _dateFormat.format(timeEntry.clockIn.toLocal());
+                              //dia salida 
+                              final clockOutDarFormatted = timeEntry.clockOut !=null ?  _dateFormat.format(timeEntry.clockOut!.toLocal()) : 'En curso';
+                              // hora entrada 
+                              final timeClockInFormatted = _timeFormat.format(timeEntry.clockIn.toLocal());
+                              //hora salida 
+                              final timeClockOutFormatted=  timeEntry.clockOut !=null ?  _timeFormat.format(timeEntry.clockOut!.toLocal()) : 'En curso'; 
+                              
+                              //ultima modicafión pra mostrar integridad 
+                              final createdAt = _createdAtFormat.format(timeEntry. 
+                              createdAt);
+                          
+                              //si no hay fichaje de salida, el fichaje esta en curso 
+                              bool isActive = timeEntry.clockOut ==null; 
+                                          
+                              String totalTime = TimeUtils.calculateDuration(timeEntry.clockIn.toLocal(), timeEntry.clockOut?.toLocal());
+                          
+                              return Card(
+                          
+                                margin: const EdgeInsets.symmetric(vertical: 6),
+                                elevation:4, // sombra para la Card
+                                shadowColor: Colors.black26,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                  //si el fichakje esta activo, que tengo un sobreado
+                                  side: isActive ? BorderSide(color: Colors.lightGreen, width: 1.5) : BorderSide.none),
+                              
+                                child: ListTile(
+                                  minVerticalPadding: 8,
+                                  title: Text(
+                                   'Día $clockIndayFormatted - $clockOutDarFormatted',
+                                   style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                   textAlign: TextAlign.start,
+                                   ),
+                                  subtitle: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(children:[
+                                        Flexible(child: Text('Entrada: $timeClockInFormatted ')),
+                                        SizedBox(width: 36),
+                                        Flexible(child: Text('Salida: $timeClockOutFormatted')),
+                                        ]
+                                      ),
+                                      SizedBox(height: 8),
+                                      Text('Tiempo trabajado: $totalTime'),
+                                      SizedBox(height: 8),
+                                      Text('Fecha registro : $createdAt')
+                                    ],
+                                  ),
+                                  leading: Icon(
+                                    isActive ? Icons.access_time_filled : Icons.check_circle,
+                                    color: isActive ? AppColors.activeTimeEntryColor: AppColors.completedTimeEntryIcon,
+                                  )
+                                ),
+                              );
+                            });
+                        }
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           );
         },
       ),
