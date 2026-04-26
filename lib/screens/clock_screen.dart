@@ -54,7 +54,7 @@ class _ClockScreenState extends State<ClockScreen> {
       final userId = _authService.currentUser?.id; 
       if(userId!= null){
         final entry = await _timeEntryService.getActiveTimeEntry(userId);
-        final lastEntry= await _timeEntryService.getActiveTimeEntry(userId);
+        final lastEntry= await _timeEntryService.getLastCompletedTimeEntry(userId);
 
         if(mounted){
           setState(() { 
